@@ -1,0 +1,21 @@
+select
+  REF_ID,
+  DATE,
+  REF_TYPE_ID,
+  OWNER_NAME_1,
+  OWNER_ID_1,
+  OWNER_NAME_2,
+  OWNER_ID_2,
+  ARG_NAME_1,
+  ARG_ID_1,
+  AMOUNT,
+  BALANCE,
+  REASON,
+  TAX_RECEIVER,
+  TAX_AMOUNT,
+  ACCOUNT_KEY,
+  CHARACTER_ID
+from
+  WALLET_JOURNAL
+where
+  REF_ID = /* refId */1

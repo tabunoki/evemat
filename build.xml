@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+	 2010/08/05 12:07:23
+
+	 EVE Online
+	 EVE Online Assist Tool
+
+	 binarysprite
+	 ====================================================================== -->
+<project name="EVE MAT" default="default">
+	<description>
+		EVE Manufacture Assistance Tool
+	</description>
+
+
+	<property name="app.directory" location="X:/EVE_MAT" />
+
+	<path id="classpath.lib">
+		<fileset dir="${basedir}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="${basedir}/war">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<pathconvert property="app.classpath" refid="classpath.lib" pathsep=" ">
+		<map from="${basedir}" to="." />
+	</pathconvert>
+
+	<!-- ================================= 
+		  target: 
+		 ================================= -->
+	<target name="default" description="EVE MAT">
+
+		<delete dir="${app.directory}" />
+		<mkdir dir="${app.directory}" />
+
+		<echo message="${app.classpath}" />
+
+		<!-- ライブラリ -->
+		<copy todir="${app.directory}/lib">
+			<fileset dir="${basedir}/lib" />
+		</copy>
+
+		<!-- WAR -->
+		<copy todir="${app.directory}/war">
+			<fileset dir="${basedir}/war" />
+		</copy>
+
+		<jar destfile="${app.directory}/evemat.jar">
+			<manifest>
+				<attribute name="Main-Class" value="com.binarysprite.evemat.Start" />
+				<attribute name="Class-Path" value="${app.classpath}" />
+				<!-- 
+				<attribute name="Bundle-NativeCode" value="${app.native}" />
+				<attribute name="SplashScreen-Image" value="splash.png" />
+				 -->
+			</manifest>
+			<fileset dir="${basedir}/bin" />
+		</jar>
+	</target>
+
+</project>

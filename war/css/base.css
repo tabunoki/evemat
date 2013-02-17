@@ -1,0 +1,92 @@
+
+body {
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+}
+
+h3 {
+	font-weight: bold;
+	margin: 1em 0em;
+	clear: both;
+}
+
+p, li, th, td {
+	font-size: 80%;
+	line-height: 1.5em;
+}
+
+ol {
+	list-style-type: decimal;
+	list-style-position: inside;
+	padding: 0em 1em;
+}
+
+table {
+	margin: 5px;
+	padding: 5px;
+}
+th {
+	text-align: center;
+	color: #D6C6AF;
+	background-color: #250d00;
+}
+th, td {
+	margin: 0.1em 1em;
+	padding: 0.2em 1em;
+}
+
+
+form input.number {
+	font-family: Courier, monospace;
+	text-align: right;
+	padding: 0.1em 0.5em;
+}
+form input.code {
+	font-family: Courier, monospace;
+	padding: 0.1em 0.5em;
+}
+form input.button {
+	padding: 0.2em 2em;
+}
+form input.command_button {
+	width: 6em;
+	padding: 0.2em 1em;
+}
+
+
+div.wicket-aa {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	padding: 1px;
+	margin-top: 1px;
+}
+div.wicket-aa ul li {
+	padding: 1px 5px 1px 5px;
+}
+div.wicket-aa ul li.selected {
+	background-color: #ff6600
+}
+
+
+.center {
+	text-align: center;
+}
+.right {
+	text-align: right;
+}
+
+/* ------------------------------
+Character Page
+------------------------------ */
+
+.portrait {
+	clear: both;
+	overflow: auto;
+	margin: 0.5em;
+}
+.portrait img {
+	float: left;
+	margin-right: 2em;
+	padding: 2px;
+	border: 1px solid #bbb;
+}
+

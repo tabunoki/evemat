@@ -1,0 +1,150 @@
+<wicket:extend>
+
+
+<!-- ******************** Blueprint ******************** -->
+
+<form wicket:id="blueprintForm">
+<table>
+	<thead>
+		<tr>
+			<th>icon</th>
+			<th>blueprint type</th>
+			<th>ME</th>
+			<th>PE</th>
+			<th>group</th>
+			<th>check</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr wicket:id="blueprintList">
+			<td><img width="32" height="32"></td>
+			<td wicket:id="blueprintTypeName"></td>
+			<td><input type="text" name="me" maxlength="10" size="4" class="number" wicket:id="materialEfficiency" /></td>
+			<td><input type="text" name="pe" maxlength="10" size="4" class="number" wicket:id="productionEfficiency" /></td>
+			<td wicket:id="blueprintGroup"></td>
+			<td>
+				<input type="submit" name="update" value="update" class="command_button" wicket:id="updateBlueprint" />
+				<input type="submit" name="delete" value="delete" class="command_button" wicket:id="deleteBlueprint" /></td>
+		</tr>
+	</tbody>
+	<!-- 
+	<tfoot>
+		<tr>
+			<td><img width="32" height="32"></td>
+			<td><input type="text" name="blueprintTypeName" size="48" wicket:id="newBlueprintTypeName" /></td>
+			<td><input type="text" name="me" maxlength="10" size="4" class="number" wicket:id="newMaterialEfficiency" /></td>
+			<td><input type="text" name="pe" maxlength="10" size="4" class="number" wicket:id="newProductionEfficiency" /></td>
+			<td>
+				<select size="1" wicket:id="newGroupDropDownChoice">
+				</select>
+			</td>
+			<td><input type="submit" value="new" class="command_button" wicket:id="addNewBlueprint" /></td>
+		</tr>
+	</tfoot>
+	 -->
+</table>
+</form>
+
+
+<h3>New Blueprint</h3>
+
+<form wicket:id="newBlueprintForm">
+<table>
+	<tbody>
+		<tr>
+			<td>Type Name:</td>
+			<td><input type="text" name="blueprintTypeName" size="48" wicket:id="newBlueprintTypeName" /></td>
+		</tr>
+		<tr>
+			<td>Material Efficiency:</td>
+			<td><input type="text" name="me" maxlength="10" size="4" class="number" wicket:id="newMaterialEfficiency" /></td>
+		</tr>
+		<tr>
+			<td>Production Efficiency:</td>
+			<td><input type="text" name="pe" maxlength="10" size="4" class="number" wicket:id="newProductionEfficiency" /></td>
+		</tr>
+		<tr>
+			<td>Group:</td>
+			<td>
+				<select size="1" wicket:id="newGroupDropDownChoice">
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="new" class="command_button" wicket:id="addNewBlueprint" /></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+
+
+<!-- ******************** Group ******************** -->
+
+<h2>Group</h2>
+
+<form wicket:id="groupForm">
+<table>
+	<thead>
+		<tr>
+			<th>Group Name</th>
+			<th>Production Time (hour)</th>
+			<th>Character</th>
+			<th>Check</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr wicket:id="groupList">
+			<td wicket:id="listGroupName"></td>
+			<td class="center"><input type="text" name="production time" size="4" wicket:id="listGroupProductionTime" class="number" /> hour(s)</td>
+			<td wicket:id="listGroupCharacter"  class="center"></td>
+			<td class="center"><input type="submit" name="delete" value="delete" class="command_button" wicket:id="deleteGroup" /></td>
+		</tr>
+	</tbody>
+	<!-- 
+	<tfoot>
+		<tr>
+			<td><input type="text" name="Group Name" size="32" wicket:id="groupName" /></td>
+			<td class="center"><input type="text" name="Production Time" size="4" wicket:id="productionTime" class="number" /> hour(s)</td>
+			<td wicket:id="charactersFeedback">
+				<select size="1" wicket:id="characterSelect">
+				</select>
+			</td>
+			<td class="center"><input type="submit" value="new" class="command_button" wicket:id="newGroupButton" /></td>
+		</tr>
+	</tfoot>
+	 -->
+</table>
+</form>
+
+
+<h3>New Group</h3>
+
+<form wicket:id="newGroupForm">
+<table>
+	<tbody>
+		<tr>
+			<td>Group Name:</td>
+			<td><input type="text" name="Group Name" size="32" wicket:id="groupName" /></td>
+		</tr>
+		<tr>
+			<td>Production Time:</td>
+			<td><input type="text" name="Production Time" size="4" wicket:id="productionTime" class="number" /></td>
+		</tr>
+		<tr>
+			<td>Character:</td>
+			<td wicket:id="charactersFeedback">
+				<select size="1" wicket:id="characterSelect">
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="new" class="command_button" wicket:id="newGroupButton" /></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+
+
+</wicket:extend>

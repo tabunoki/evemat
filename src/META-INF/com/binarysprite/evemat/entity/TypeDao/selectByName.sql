@@ -1,0 +1,1 @@
+select TYPE.* from TYPE inner join BLUEPRINT on TYPE.TYPE_ID = BLUEPRINT.BLUEPRINT_TYPE_ID where TYPE_NAME like /* @contain(typeName) */'%X%' escape '$'

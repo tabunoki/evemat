@@ -1,0 +1,70 @@
+<wicket:extend>
+
+
+<table>
+	<!--
+	<thead>
+		<tr>
+			<th>icon</th>
+			<th>type name</th>
+			<th>quantity</th>
+			<th>sales</th>
+			<th>costs</th>
+			<th>profit</th>
+			<th>ratio</th>
+		</tr>
+	</thead>
+	-->
+	<tfoot>
+		<tr>
+			<th>icon</th>
+			<th>type name</th>
+			<th>quantity</th>
+			<th>sales</th>
+			<th>costs</th>
+			<th>profit</th>
+			<th>ratio</th>
+		</tr>
+	</tfoot>
+	<tbody wicket:id="groupList">
+		<tr>
+			<th>icon</th>
+			<th>type name</th>
+			<th>quantity</th>
+			<th>sales</th>
+			<th>costs</th>
+			<th>profit</th>
+			<th>ratio</th>
+		</tr>
+		<tr wicket:id="productList">
+			<td><img width="32" height="32" wicket:id="productIcon"></td>
+			<td wicket:id="typeName"></td>
+			<td wicket:id="quantity" class="right"></td>
+			<td wicket:id="sales" class="right"></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr wicket:id="materialList">
+			<td><img width="32" height="32" wicket:id="materialIcon"></td>
+			<td wicket:id="typeName"></td>
+			<td wicket:id="quantity" class="right"></td>
+			<td></td>
+			<td wicket:id="costs" class="right"></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td wicket:id="totalSales" class="right"></td>
+			<td wicket:id="totalCosts" class="right"></td>
+			<td wicket:id="profit" class="right"></td>
+			<td wicket:id="ratio" class="right"></td>
+		</tr>
+	</tbody>
+</table>
+
+
+</wicket:extend>
