@@ -7,6 +7,11 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang3.time.FastDateFormat;
 
+/**
+ * 
+ * @author Tabunoki
+ *
+ */
 public class Constants {
 	
 	/**
