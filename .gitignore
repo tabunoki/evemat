@@ -2,3 +2,6 @@
 /doc
 .apt_generated
 bin
+/.apt_generated
+/bin
+/doc
