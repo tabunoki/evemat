@@ -1,7 +1,7 @@
 package com.binarysprite.evemat.entity;
 
 /** */
-@javax.annotation.Generated(value = { "Doma", "1.25.0" }, date = "2013-02-17T18:10:12.134+0900")
+@javax.annotation.Generated(value = { "Doma", "1.25.0" }, date = "2013-02-19T21:52:06.033+0900")
 public class UnitDaoImpl extends org.seasar.doma.internal.jdbc.dao.AbstractDao implements com.binarysprite.evemat.entity.UnitDao {
 
     static {

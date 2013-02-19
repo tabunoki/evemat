@@ -1,7 +1,7 @@
 package com.binarysprite.evemat.entity;
 
 /** */
-@javax.annotation.Generated(value = { "Doma", "1.25.0" }, date = "2013-02-17T18:10:12.083+0900")
+@javax.annotation.Generated(value = { "Doma", "1.25.0" }, date = "2013-02-19T21:52:05.967+0900")
 public class IconDaoImpl extends org.seasar.doma.internal.jdbc.dao.AbstractDao implements com.binarysprite.evemat.entity.IconDao {
 
     static {

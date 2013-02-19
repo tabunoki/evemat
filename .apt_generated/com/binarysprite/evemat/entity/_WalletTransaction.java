@@ -1,7 +1,7 @@
 package com.binarysprite.evemat.entity;
 
 /** */
-@javax.annotation.Generated(value = { "Doma", "1.25.0" }, date = "2013-02-17T18:10:11.996+0900")
+@javax.annotation.Generated(value = { "Doma", "1.25.0" }, date = "2013-02-19T21:52:05.773+0900")
 public final class _WalletTransaction extends org.seasar.doma.jdbc.entity.AbstractEntityType<com.binarysprite.evemat.entity.WalletTransaction> {
 
     static {
