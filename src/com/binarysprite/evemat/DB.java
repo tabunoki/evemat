@@ -11,6 +11,11 @@ import org.seasar.doma.jdbc.dialect.H2Dialect;
 import org.seasar.doma.jdbc.tx.LocalTransaction;
 import org.seasar.doma.jdbc.tx.LocalTransactionalDataSource;
 
+/**
+ * DB管理クラスです。
+ * @author Tabunoki
+ *
+ */
 public class DB extends DomaAbstractConfig {
 
 	protected static final LocalTransactionalDataSource DATA_SOURCE = createDataSource();

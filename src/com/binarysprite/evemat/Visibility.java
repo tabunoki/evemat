@@ -9,6 +9,11 @@ import com.binarysprite.evemat.page.CharacterPage;
 import com.binarysprite.evemat.page.ProductPage;
 import com.binarysprite.evemat.page.TransactionPage;
 
+/**
+ * Wicket によるアプリケーションクラスです。
+ * @author Tabunoki
+ *
+ */
 public class Visibility extends WebApplication {
 
 	/*

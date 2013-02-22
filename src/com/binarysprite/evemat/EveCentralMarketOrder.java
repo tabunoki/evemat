@@ -2,7 +2,11 @@ package com.binarysprite.evemat;
 
 import java.util.Date;
 
-
+/**
+ * EVE Central のマーケットオーダークラスです。
+ * @author Tabunoki
+ *
+ */
 public class EveCentralMarketOrder {
 	
 	/**

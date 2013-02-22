@@ -5,6 +5,11 @@ import org.apache.wicket.markup.html.WebComponent;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 
+/**
+ * 外部の画像ファイルを参照するコンポーネントです。
+ * @author Tabunoki
+ *
+ */
 public class ExternalImage extends WebComponent {
 
 	/**

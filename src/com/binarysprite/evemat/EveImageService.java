@@ -9,6 +9,11 @@ import java.net.URL;
 
 import org.apache.wicket.util.file.File;
 
+/**
+ * EVE Online の画像情報を取得するユーティリティクラスです。
+ * @author Tabunoki
+ *
+ */
 public class EveImageService {
 
 	public static enum CharacterPortraitSize {

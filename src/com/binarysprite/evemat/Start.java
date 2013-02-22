@@ -23,6 +23,11 @@ import javax.imageio.ImageIO;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
+/**
+ * アプリケーションのスタートポイントクラスです。
+ * @author Tabunoki
+ *
+ */
 public class Start {
 	
 	private static final int SERVER_PORT = 8080;

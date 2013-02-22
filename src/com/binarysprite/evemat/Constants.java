@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 /**
- * 
+ * アプリケーションの定数を管理するクラスです。
  * @author Tabunoki
  *
  */
