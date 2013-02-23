@@ -34,7 +34,7 @@ public class DB extends DomaAbstractConfig {
 
 	protected static LocalTransactionalDataSource createDataSource() {
 		SimpleDataSource dataSource = new SimpleDataSource();
-		dataSource.setUrl("jdbc:h2:file:" + new File(Resources.PATH, "evemat").getAbsolutePath());
+		dataSource.setUrl("jdbc:h2:file:" + new File(Constants.APP_DATA_DIR, "evemat").getAbsolutePath());
 		dataSource.setUser("sa");
 		
 		System.out.println(dataSource.getUrl());

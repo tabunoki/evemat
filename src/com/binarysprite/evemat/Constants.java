@@ -1,5 +1,6 @@
 package com.binarysprite.evemat;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
@@ -76,6 +77,11 @@ public class Constants {
 	 */
 	public static final FastDateFormat DATE_TIME_FORMAT =
 			FastDateFormat.getInstance(DATE_TIME_PATTERN, EVE_TIME_ZONE);
+	
+	/**
+	 * アプリケーションのユーザーデータを管理するディレクトリです。
+	 */
+	public static final File APP_DATA_DIR = new File(System.getProperty("user.home"), ".evemat");
 
 	/**
 	 * インスタンスの生成は制御されています。
