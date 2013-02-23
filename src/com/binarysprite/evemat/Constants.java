@@ -82,6 +82,29 @@ public class Constants {
 	 * アプリケーションのユーザーデータを管理するディレクトリです。
 	 */
 	public static final File APP_DATA_DIR = new File(System.getProperty("user.home"), ".evemat");
+	
+	/**
+	 * アプリケーションのデータベースファイルです。
+	 */
+	public static final File APP_DB_FILE = new File(Constants.APP_DATA_DIR, "evemat");
+	
+	/**
+	 * アプリケーションのデータベースファイルの拡張子です。
+	 */
+	public static final File APP_DB_FILE_WITH_EXTENSION = new File(APP_DB_FILE.getAbsolutePath() + ".h2.db");
+	
+	/**
+	 * アプリケーションのロックファイルです。
+	 */
+	public static final File APP_LOCK_FILE = new File(Constants.APP_DATA_DIR, "lock");
+	
+	/**
+	 * イニシャライザーです。
+	 * 設定値をログに出力します。
+	 */
+	static {
+		LOGGER.info("App Data Directory: " + APP_DATA_DIR.getAbsolutePath());
+	}
 
 	/**
 	 * インスタンスの生成は制御されています。

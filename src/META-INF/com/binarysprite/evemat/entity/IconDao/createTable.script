@@ -12,4 +12,4 @@ INSERT INTO
 SELECT
 	*
 FROM
-	CSVREAD('classpath:\res\static_data\eveIcons.csv');
+	CSVREAD('classpath:\META-INF\static_data\eveIcons.csv');

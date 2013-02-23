@@ -1,7 +1,5 @@
 package com.binarysprite.evemat;
 
-import java.io.File;
-
 import javax.sql.DataSource;
 
 import org.seasar.doma.jdbc.DomaAbstractConfig;
@@ -32,16 +30,22 @@ public class DB extends DomaAbstractConfig {
 		return DIALECT;
 	}
 
+	/**
+	 * データソースを生成します。
+	 * @return
+	 */
 	protected static LocalTransactionalDataSource createDataSource() {
 		SimpleDataSource dataSource = new SimpleDataSource();
-		dataSource.setUrl("jdbc:h2:file:" + new File(Constants.APP_DATA_DIR, "evemat").getAbsolutePath());
+		dataSource.setUrl("jdbc:h2:file:" + Constants.APP_DB_FILE.getAbsolutePath());
 		dataSource.setUser("sa");
-		
-		System.out.println(dataSource.getUrl());
 		
 		return new LocalTransactionalDataSource(dataSource);
 	}
 	
+	/**
+	 * ローカルトランザクションを取得します。
+	 * @return
+	 */
     public static LocalTransaction getLocalTransaction() {
         return DATA_SOURCE.getLocalTransaction(defaultJdbcLogger);
     }

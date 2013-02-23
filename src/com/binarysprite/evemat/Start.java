@@ -10,7 +10,6 @@ import java.awt.TrayIcon;
 import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -22,6 +21,32 @@ import javax.imageio.ImageIO;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.seasar.doma.jdbc.tx.LocalTransaction;
+
+import com.binarysprite.evemat.entity.AccountCharacterDao;
+import com.binarysprite.evemat.entity.AccountCharacterDaoImpl;
+import com.binarysprite.evemat.entity.BlueprintDao;
+import com.binarysprite.evemat.entity.BlueprintDaoImpl;
+import com.binarysprite.evemat.entity.IconDao;
+import com.binarysprite.evemat.entity.IconDaoImpl;
+import com.binarysprite.evemat.entity.MaterialDao;
+import com.binarysprite.evemat.entity.MaterialDaoImpl;
+import com.binarysprite.evemat.entity.ProductBlueprintDao;
+import com.binarysprite.evemat.entity.ProductBlueprintDaoImpl;
+import com.binarysprite.evemat.entity.ProductGroupDao;
+import com.binarysprite.evemat.entity.ProductGroupDaoImpl;
+import com.binarysprite.evemat.entity.ProductPriceDao;
+import com.binarysprite.evemat.entity.ProductPriceDaoImpl;
+import com.binarysprite.evemat.entity.RequirementDao;
+import com.binarysprite.evemat.entity.RequirementDaoImpl;
+import com.binarysprite.evemat.entity.TypeDao;
+import com.binarysprite.evemat.entity.TypeDaoImpl;
+import com.binarysprite.evemat.entity.UnitDao;
+import com.binarysprite.evemat.entity.UnitDaoImpl;
+import com.binarysprite.evemat.entity.WalletJournalDao;
+import com.binarysprite.evemat.entity.WalletJournalDaoImpl;
+import com.binarysprite.evemat.entity.WalletTransactionDao;
+import com.binarysprite.evemat.entity.WalletTransactionDaoImpl;
 
 /**
  * アプリケーションのスタートポイントクラスです。
@@ -42,6 +67,8 @@ public class Start {
 			if (isExecuted()) {
 				return;
 			}
+			
+			initDB();
 
 			stationTaskTray();
 			startServer();
@@ -144,8 +171,7 @@ public class Start {
 	 */
 	private static boolean isExecuted() throws IOException {
 
-		final FileOutputStream outStream = new FileOutputStream(new File(
-				"./lock"));
+		final FileOutputStream outStream = new FileOutputStream(Constants.APP_LOCK_FILE);
 		final FileChannel channel = outStream.getChannel();
 		final FileLock lock = channel.tryLock();
 		
@@ -173,5 +199,86 @@ public class Start {
 		});
 
 		return false;
+	}
+	
+	/**
+	 * DBファイルが存在しない場合、DBファイルを生成します。
+	 * テーブルを作成し、スタティックデータ（マスタ）を追加します。
+	 */
+	private static void initDB() {
+		
+		if (Constants.APP_DB_FILE_WITH_EXTENSION.exists()) {
+			return;
+		} else {
+			Constants.LOGGER.info("Database file is not found. Initialize database.");
+		}
+		
+		
+		LocalTransaction transaction = DB.getLocalTransaction();
+		
+		try {
+			transaction.begin();
+			
+			{
+				AccountCharacterDao dao = new AccountCharacterDaoImpl();
+				dao.createTable();
+			}
+			{
+				BlueprintDao dao = new BlueprintDaoImpl();
+				dao.createTable();
+			}
+			{
+				IconDao dao = new IconDaoImpl();
+				dao.createTable();
+			}
+			{
+				MaterialDao dao = new MaterialDaoImpl();
+				dao.createTable();
+			}
+			{
+				/*
+				 * PRODUCT_GROUP は PRODUCT_BLUEPRINT から参照されるため
+				 * PRODUCT_BLUEPRINT より先に CREATE しなければなりません。
+				 */
+				ProductGroupDao dao = new ProductGroupDaoImpl();
+				dao.createTable();
+			}
+			{
+				ProductBlueprintDao dao = new ProductBlueprintDaoImpl();
+				dao.createTable();
+			}
+			{
+				ProductPriceDao dao = new ProductPriceDaoImpl();
+				dao.createTable();
+			}
+			{
+				RequirementDao dao = new RequirementDaoImpl();
+				dao.createTable();
+			}
+			{
+				TypeDao dao = new TypeDaoImpl();
+				dao.createTable();
+			}
+			{
+				UnitDao dao = new UnitDaoImpl();
+				dao.createTable();
+			}
+			{
+				WalletJournalDao dao = new WalletJournalDaoImpl();
+				dao.createTable();
+			}
+			{
+				WalletTransactionDao dao = new WalletTransactionDaoImpl();
+				dao.createTable();
+			}
+			
+			transaction.commit();
+			
+		} catch (Exception e) {
+			transaction.rollback();
+			
+			Constants.LOGGER.severe(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 }
