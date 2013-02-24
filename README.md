@@ -32,48 +32,48 @@ Distributed under the [MIT License][mit].
 	</tr>
 	<tr>
 		<td>commons-beanutils-1.8.3</td>
-		<td>[Apache License, Version 2.0][Apache]</td>
+		<td>Apache License, Version 2.0</td>
 	</tr>
 	<tr>
 		<td>commons-digester-2.1</td>
-		<td>[Apache License, Version 2.0][Apache]</td>
+		<td>Apache License, Version 2.0</td>
 	</tr>
 	<tr>
 		<td>H2 Database Engine</td>
-		<td>[Mozilla Public License 1.1][MPL] or [Eclipse Public License 1.0][EPL]</td>
+		<td>Mozilla Public License 1.1 or Eclipse Public License 1.0</td>
 	</tr>
 	<tr>
 		<td>eveapi-3.0.1</td>
-		<td>[LGPL][LGPL]</td>
+		<td>LGPL</td>
 	</tr>
 	<tr>
 		<td>jetty-7.5.4</td>
-		<td>[Apache License, Version 2.0][Apache] or [Eclipse Public License 1.0][EPL]</td>
+		<td>Apache License, Version 2.0 or Eclipse Public License 1.0</td>
 	</tr>
 	<tr>
 		<td>Doma</td>
-		<td>[Apache License, Version 2.0][Apache]</td>
+		<td>Apache License, Version 2.0</td>
 	</tr>
 	<tr>
 		<td>slf4j-1.6.4</td>
-		<td>[MIT License][MIT]</td>
+		<td>MIT License</td>
 	</tr>
 	<tr>
 		<td>wicket-1.5.3</td>
-		<td>[Apache License, Version 2.0][Apache]</td>
+		<td>Apache License, Version 2.0</td>
 	</tr>
 	<tr>
 		<td>Fugue Icons</td>
-		<td>[Creative Commons Attribution 3.0 license][CC3]</td>
+		<td>Creative Commons Attribution 3.0 license</td>
 	</tr>
 </table>
 
-[Apache]: http://www.apache.org/licenses/LICENSE-2.0
-[MIT]: http://www.opensource.org/licenses/mit-license.php
-[MPL]: http://www.mozilla.org/MPL/
-[EPL]: http://www.eclipse.org/legal/epl-v10.html
-[LGPL]: http://www.gnu.org/licenses/lgpl.html
-[CC3]: http://creativecommons.org/licenses/by/3.0/deed.ja
+1. [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+2. [MIT License](http://www.opensource.org/licenses/mit-license.php)
+3. [Mozilla Public License 1.1](http://www.mozilla.org/MPL/)
+4. [Eclipse Public License 1.0](http://www.eclipse.org/legal/epl-v10.html)
+5. [LGPL](http://www.gnu.org/licenses/lgpl.html)
+6. [Creative Commons Attribution 3.0 license](http://creativecommons.org/licenses/by/3.0/deed.ja)
 
 
 ### EVE Online Copyright Notice
