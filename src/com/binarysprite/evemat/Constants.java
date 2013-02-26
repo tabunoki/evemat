@@ -1,9 +1,11 @@
 package com.binarysprite.evemat;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -18,7 +20,7 @@ public class Constants {
 	/**
 	 * 基本ロガーです。
 	 */
-	public static final Logger LOGGER = Logger.getLogger("com.vagrantmuse.visibility");
+	public static final Logger LOGGER = Logger.getLogger("EVE-MAT");
 	
 	/**
 	 * 価格表示用のフォーマットです。
@@ -52,6 +54,7 @@ public class Constants {
 	
 	/**
 	 * 標準的な日付のフォーマットです。
+	 * このフォーマットは EVE 時間のタイムゾーンであることに注意して下さい。
 	 */
 	public static final FastDateFormat DATE_FORMAT =
 			FastDateFormat.getInstance(DATE_PATTERN, EVE_TIME_ZONE);
@@ -63,6 +66,7 @@ public class Constants {
 	
 	/**
 	 * 標準的な時間のフォーマットです。
+	 * このフォーマットは EVE 時間のタイムゾーンであることに注意して下さい。
 	 */
 	public static final FastDateFormat TIME_FORMAT =
 			FastDateFormat.getInstance(TIME_PATTERN, EVE_TIME_ZONE);
@@ -74,6 +78,7 @@ public class Constants {
 	
 	/**
 	 * 標準的な日付と時間のフォーマットです。
+	 * このフォーマットは EVE 時間のタイムゾーンであることに注意して下さい。
 	 */
 	public static final FastDateFormat DATE_TIME_FORMAT =
 			FastDateFormat.getInstance(DATE_TIME_PATTERN, EVE_TIME_ZONE);
@@ -86,7 +91,7 @@ public class Constants {
 	/**
 	 * アプリケーションのデータベースファイルです。
 	 */
-	public static final File APP_DB_FILE = new File(Constants.APP_DATA_DIR, "evemat");
+	public static final File APP_DB_FILE = new File(APP_DATA_DIR, "evemat");
 	
 	/**
 	 * アプリケーションのデータベースファイルの拡張子です。
@@ -96,13 +101,23 @@ public class Constants {
 	/**
 	 * アプリケーションのロックファイルです。
 	 */
-	public static final File APP_LOCK_FILE = new File(Constants.APP_DATA_DIR, "lock");
+	public static final File APP_LOCK_FILE = new File(APP_DATA_DIR, "lock");
 	
 	/**
 	 * イニシャライザーです。
 	 * 設定値をログに出力します。
 	 */
 	static {
+		
+		try {
+			LogManager.getLogManager().readConfiguration(Constants.class.getClassLoader().getResourceAsStream(
+					"META-INF/properties/logging.properties"));
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		LOGGER.info("App Data Directory: " + APP_DATA_DIR.getAbsolutePath());
 	}
 

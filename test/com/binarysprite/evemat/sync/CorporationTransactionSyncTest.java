@@ -1,5 +1,7 @@
 package com.binarysprite.evemat.sync;
 
+import static org.junit.Assert.*;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,6 +35,8 @@ public class CorporationTransactionSyncTest {
 		} finally {
 			transaction.rollback();
 		}
+		
+		assertNotSame(0, accountCharacters.size());
 		
 		for (AccountCharacter accountCharacter : accountCharacters) {
 			authorizations.add(new ApiAuthorization(

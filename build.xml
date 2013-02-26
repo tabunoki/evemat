@@ -13,7 +13,7 @@
 	</description>
 
 
-	<property name="app.directory" location="X:/EVE_MAT" />
+	<property name="app.directory" location="W:/EVE_MAT" />
 
 	<path id="classpath.lib">
 		<fileset dir="${basedir}/lib">

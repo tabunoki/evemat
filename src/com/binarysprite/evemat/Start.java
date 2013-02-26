@@ -129,6 +129,14 @@ public class Start {
 		final MenuItem startBrowserItem = new MenuItem("Start Browser");
 		final MenuItem exitItem = new MenuItem("Exit");
 
+		updateData.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
 		startBrowserItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -208,9 +216,10 @@ public class Start {
 	private static void initDB() {
 		
 		if (Constants.APP_DB_FILE_WITH_EXTENSION.exists()) {
+			Constants.LOGGER.info("Database file is already exists.");
 			return;
 		} else {
-			Constants.LOGGER.info("Database file is not found. Initialize database.");
+			Constants.LOGGER.info("Database file is not exists. Initialize database.");
 		}
 		
 		
