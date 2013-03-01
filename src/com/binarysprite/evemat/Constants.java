@@ -89,12 +89,12 @@ public class Constants {
 	public static final File APP_DATA_DIR = new File(System.getProperty("user.home"), ".evemat");
 	
 	/**
-	 * アプリケーションのデータベースファイルです。
+	 * アプリケーションのデータベースファイル（拡張子なし）です。
 	 */
 	public static final File APP_DB_FILE = new File(APP_DATA_DIR, "evemat");
 	
 	/**
-	 * アプリケーションのデータベースファイルの拡張子です。
+	 * アプリケーションのデータベースファイル（拡張子つき）です。
 	 */
 	public static final File APP_DB_FILE_WITH_EXTENSION = new File(APP_DB_FILE.getAbsolutePath() + ".h2.db");
 	

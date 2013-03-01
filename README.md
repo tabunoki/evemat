@@ -20,7 +20,7 @@ License
 -------------------------------------------------------------------------------
 &copy; 2013 Tabunoki
 
-Distributed under the [MIT License][mit].
+Distributed under the MIT License.
 
 
 ### Libraries
