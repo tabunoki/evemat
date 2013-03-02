@@ -5,7 +5,7 @@
 	 EVE Online	
 	 EVE Online Assist Tool
 
-	 vagrantmuse
+	 Tabunoki
 	 ====================================================================== -->
 <project name="doma-gen" default="gen">
 	<description>

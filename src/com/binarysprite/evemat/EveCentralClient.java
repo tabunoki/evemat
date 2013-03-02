@@ -1,7 +1,6 @@
 package com.binarysprite.evemat;
 
 import java.io.IOException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,18 +13,6 @@ import java.util.SimpleTimeZone;
 import java.util.Stack;
 import java.util.logging.Logger;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -59,19 +46,22 @@ public class EveCentralClient {
 	}
 
 	/**
+	 * クエリに渡すパラメータのブロックを作成します。
+	 * API側の仕様で一度に送信できるパラメータの数が限られている場合、複数のクエリに分割しなければなりません。
+	 * このメソッドは指定の「キー」と「値」の組み合わせを「サイズ」の数のブロックに分割します。
 	 * 
-	 * @param ids
-	 * @param key
-	 * @param size
-	 * @return
+	 * @param values パラメータの値
+	 * @param key パラメータのキー
+	 * @param size 単位ブロックあたりのパラメータ数
+	 * @return 分割したクエリブロックのリスト
 	 */
-	private List<String> buildQueryBlocks(Collection<Integer> ids, String key, int size) {
+	private List<String> buildQueryBlocks(Collection<Integer> values, String key, int size) {
 		
 		List<String> blockList = new ArrayList<String>();
 		
 		StringBuilder builder = null;
-		Iterator<Integer> iterator = ids.iterator();
-		for (int i = 0; iterator.hasNext(); i++) {
+		Iterator<Integer> valuesIterator = values.iterator();
+		for (int i = 0; valuesIterator.hasNext(); i++) {
 			if (i % size == 0) {
 				if (builder != null) {
 					blockList.add(builder.toString());
@@ -79,7 +69,7 @@ public class EveCentralClient {
 				builder = new StringBuilder();
 			}
 			builder.append(key);
-			builder.append(iterator.next());
+			builder.append(valuesIterator.next());
 		}
 		if (builder != null) {
 			blockList.add(builder.toString());
@@ -185,107 +175,28 @@ public class EveCentralClient {
 	 */
 	private List<EveCentralMarketStat> getMarketStats(String query) {
 		
-		DocumentBuilder builder = null;
-		try {
-			builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
+		long startTime = System.nanoTime();
 		
-		Document document = null;
+		final List<EveCentralMarketStat> marketStats = new ArrayList<EveCentralMarketStat>();
+
 		try {
+			final XMLReader reader = XMLReaderFactory.createXMLReader();
+			
+			reader.setContentHandler(new MarketStatHandler(marketStats));
+			
 			if (logger != null) {
 				logger.info("EVE Central API へクエリを送信: " + query);
 			}
 			
-			document = builder.parse(new URL(query).openStream());
+			reader.parse(new InputSource(query));
 			
 		} catch (SAXException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (TransformerFactoryConfigurationError e) {
-			e.printStackTrace();
 		}
 		
-		List<EveCentralMarketStat> marketStats = new ArrayList<EveCentralMarketStat>();
-		
-		XPath xPath = XPathFactory.newInstance().newXPath();
-		
-		try {
-			NodeList typeNodeList = (NodeList) xPath.evaluate("//type", document, XPathConstants.NODESET);
-			
-			for (int i = 0; i < typeNodeList.getLength(); i++) {
-				Node typeNode = typeNodeList.item(i);
-				NodeList orderKindNodeList = typeNode.getChildNodes();
-				
-				EveCentralMarketStat marketStat = new EveCentralMarketStat();
-				
-				marketStat.setTypeID(Integer.parseInt(typeNode.getAttributes().getNamedItem("id").getNodeValue()));
-				
-				for (int j = 0; j < orderKindNodeList.getLength(); j++) {
-					Node orderKindNode = orderKindNodeList.item(j);
-					NodeList statNodeList = orderKindNode.getChildNodes();
-					
-					for (int k = 0; k < statNodeList.getLength(); k++) {
-						Node statNode = statNodeList.item(k);
-						
-						String statNodeName = statNode.getNodeName();
-						String statNodeText = statNode.getTextContent();
-						
-						if (orderKindNode.getNodeName().equals("all")) {
-							if (statNodeName.equals("volume")) {
-								marketStat.setAllVolume(Long.parseLong(statNodeText));
-							} else if (statNodeName.equals("avg")) {
-								marketStat.setAllAvg(Double.parseDouble(statNodeText));
-							} else if (statNodeName.equals("max")) {
-								marketStat.setAllMax(Double.parseDouble(statNodeText));
-							} else if (statNodeName.equals("min")) {
-								marketStat.setAllMin(Double.parseDouble(statNodeText));
-							} else if (statNodeName.equals("stddev")) {
-								marketStat.setAllStdDev(Double.parseDouble(statNodeText));
-							} else if (statNodeName.equals("median")) {
-								marketStat.setAllMedian(Double.parseDouble(statNodeText));
-							}
-						} else if (orderKindNode.getNodeName().equals("buy")) {
-							if (statNodeName.equals("volume")) {
-								marketStat.setBuyVolume(Long.parseLong(statNodeText));
-							} else if (statNodeName.equals("avg")) {
-								marketStat.setBuyAvg(Double.parseDouble(statNodeText));
-							} else if (statNodeName.equals("max")) {
-								marketStat.setBuyMax(Double.parseDouble(statNodeText));
-							} else if (statNodeName.equals("min")) {
-								marketStat.setBuyMin(Double.parseDouble(statNodeText));
-							} else if (statNodeName.equals("stddev")) {
-								marketStat.setBuyStdDev(Double.parseDouble(statNodeText));
-							} else if (statNodeName.equals("median")) {
-								marketStat.setBuyMedian(Double.parseDouble(statNodeText));
-							}
-						} else if (orderKindNode.getNodeName().equals("sell")) {
-							if (statNodeName.equals("volume")) {
-								marketStat.setSellVolume(Long.parseLong(statNodeText));
-							} else if (statNodeName.equals("avg")) {
-								marketStat.setSellAvg(Double.parseDouble(statNodeText));
-							} else if (statNodeName.equals("max")) {
-								marketStat.setSellMax(Double.parseDouble(statNodeText));
-							} else if (statNodeName.equals("min")) {
-								marketStat.setSellMin(Double.parseDouble(statNodeText));
-							} else if (statNodeName.equals("stddev")) {
-								marketStat.setSellStdDev(Double.parseDouble(statNodeText));
-							} else if (statNodeName.equals("median")) {
-								marketStat.setSellMedian(Double.parseDouble(statNodeText));
-							}
-						}
-					}
-					
-				}
-				
-				marketStats.add(marketStat);
-			}
-			
-		} catch (XPathExpressionException e) {
-			e.printStackTrace();
-		}
+		System.out.println((System.nanoTime() - startTime) / 1000000 + " milli sec.");
 		
 		return marketStats;
 	}
@@ -414,8 +325,8 @@ public class EveCentralClient {
 }
 
 /**
- * 
- * @author vagrantmuse
+ * マーケット統計情報のXML解析用イベントハンドラです。
+ * @author Tabunoki
  *
  */
 class MarketStatHandler extends DefaultHandler {
@@ -581,13 +492,13 @@ class MarketStatHandler extends DefaultHandler {
 			public void endElement(MarketStatHandler handler) {
 				switch (handler.elements.peek()) {
 				case SELL:
-					handler.marketStat.setSellVolume(Long.parseLong(handler.textContent.toString()));
+					handler.marketStat.setSellVolume(Long.parseLong(handler.textContent.toString().trim()));
 					break;
 				case BUY:
-					handler.marketStat.setBuyVolume(Long.parseLong(handler.textContent.toString()));
+					handler.marketStat.setBuyVolume(Long.parseLong(handler.textContent.toString().trim()));
 					break;
 				case ALL:
-					handler.marketStat.setAllVolume(Long.parseLong(handler.textContent.toString()));
+					handler.marketStat.setAllVolume(Long.parseLong(handler.textContent.toString().trim()));
 					break;
 				default:
 					break;
@@ -712,8 +623,8 @@ class MarketStatHandler extends DefaultHandler {
 }
 
 /**
- * 
- * @author vagrantmuse
+ * マーケットオーダー情報のXML解析用イベントハンドラです。
+ * @author Tabunoki
  *
  */
 class QuicklookHandler extends DefaultHandler {
@@ -729,7 +640,7 @@ class QuicklookHandler extends DefaultHandler {
 
 			@Override
 			public void endElement(QuicklookHandler handler) {
-				handler.typeID = Integer.parseInt(handler.textContent.toString());
+				handler.typeID = Integer.parseInt(handler.textContent.toString().trim());
 			}
 
 			@Override
@@ -804,7 +715,7 @@ class QuicklookHandler extends DefaultHandler {
 			@Override
 			public void endElement(QuicklookHandler handler) {
 				handler.marketOrder.setStationID(
-						Integer.parseInt(handler.textContent.toString()));
+						Integer.parseInt(handler.textContent.toString().trim()));
 			}
 
 			@Override
@@ -838,7 +749,7 @@ class QuicklookHandler extends DefaultHandler {
 			@Override
 			public void endElement(QuicklookHandler handler) {
 				handler.marketOrder.setRange(
-						Integer.parseInt(handler.textContent.toString()));
+						Integer.parseInt(handler.textContent.toString().trim()));
 			}
 
 			@Override
@@ -862,7 +773,7 @@ class QuicklookHandler extends DefaultHandler {
 			@Override
 			public void endElement(QuicklookHandler handler) {
 				handler.marketOrder.setVolumeRemain(
-						Integer.parseInt(handler.textContent.toString()));
+						Integer.parseInt(handler.textContent.toString().trim()));
 			}
 
 			@Override
@@ -874,7 +785,7 @@ class QuicklookHandler extends DefaultHandler {
 			@Override
 			public void endElement(QuicklookHandler handler) {
 				handler.marketOrder.setMinVolume(
-						Integer.parseInt(handler.textContent.toString()));
+						Integer.parseInt(handler.textContent.toString().trim()));
 			}
 
 			@Override

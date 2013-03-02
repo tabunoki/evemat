@@ -1,7 +1,5 @@
 package com.binarysprite.evemat;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +34,22 @@ public class EveCentralClientTest {
 
 	@Test
 	public void testGetMarketOrderIntCollectionOfIntegerIntIntInt() {
-		fail("まだ実装されていません");
+		
+		EveCentralClient client = new EveCentralClient();
+		
+		final int typeID = 34;
+		final List<Integer> regionIDs = new ArrayList<Integer>();
+		final int hours = 24;
+		final int minQuantity = 0;
+		final int system =0;
+		
+		regionIDs.add(10000002);
+		
+		final List<EveCentralMarketOrder> orders = client.getMarketOrder(typeID, regionIDs, hours, minQuantity, system);
+		
+		for (EveCentralMarketOrder order : orders) {
+			System.out.println(order);
+		}
 	}
 
 }
