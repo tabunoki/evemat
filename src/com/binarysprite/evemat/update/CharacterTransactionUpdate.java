@@ -1,4 +1,4 @@
-package com.binarysprite.evemat.sync;
+package com.binarysprite.evemat.update;
 
 import java.sql.Timestamp;
 import java.util.Set;
@@ -15,7 +15,7 @@ import com.binarysprite.evemat.entity.WalletTransaction;
 import com.binarysprite.evemat.entity.WalletTransactionDao;
 import com.binarysprite.evemat.entity.WalletTransactionDaoImpl;
 
-public class CharacterTransactionSync implements EveSynchronizer {
+public class CharacterTransactionUpdate implements Updater {
 	
 	/**
 	 * アカウントキー（個人の場合は1000固定）です。
@@ -31,13 +31,13 @@ public class CharacterTransactionSync implements EveSynchronizer {
 	 * 
 	 * @param authorization
 	 */
-	public CharacterTransactionSync(ApiAuthorization authorization) {
+	public CharacterTransactionUpdate(ApiAuthorization authorization) {
 		super();
 		this.authorization = authorization;
 	}
 
 	@Override
-	public void synchronize() throws ApiException {
+	public void update() throws ApiException {
 		
 		WalletTransactionsParser transactionsParser = WalletTransactionsParser.getInstance();
 		

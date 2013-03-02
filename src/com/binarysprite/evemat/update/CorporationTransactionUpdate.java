@@ -1,4 +1,4 @@
-package com.binarysprite.evemat.sync;
+package com.binarysprite.evemat.update;
 
 import java.sql.Timestamp;
 import java.util.Set;
@@ -15,7 +15,7 @@ import com.binarysprite.evemat.entity.WalletTransaction;
 import com.binarysprite.evemat.entity.WalletTransactionDao;
 import com.binarysprite.evemat.entity.WalletTransactionDaoImpl;
 
-public class CorporationTransactionSync implements EveSynchronizer {
+public class CorporationTransactionUpdate implements Updater {
 	
 	/**
 	 * 
@@ -31,13 +31,13 @@ public class CorporationTransactionSync implements EveSynchronizer {
 	 * 
 	 * @param authorization
 	 */
-	public CorporationTransactionSync(ApiAuthorization authorization) {
+	public CorporationTransactionUpdate(ApiAuthorization authorization) {
 		super();
 		this.authorization = authorization;
 	}
 
 	@Override
-	public void synchronize() throws ApiException {
+	public void update() throws ApiException {
 		
 		WalletTransactionsResponse transactionsResponse = null;
 		

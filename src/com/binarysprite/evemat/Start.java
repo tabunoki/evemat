@@ -18,11 +18,13 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 
 import javax.imageio.ImageIO;
+import javax.swing.SwingUtilities;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.seasar.doma.jdbc.tx.LocalTransaction;
 
+import com.beimin.eveapi.core.ApiException;
 import com.binarysprite.evemat.entity.AccountCharacterDao;
 import com.binarysprite.evemat.entity.AccountCharacterDaoImpl;
 import com.binarysprite.evemat.entity.BlueprintDao;
@@ -47,6 +49,9 @@ import com.binarysprite.evemat.entity.WalletJournalDao;
 import com.binarysprite.evemat.entity.WalletJournalDaoImpl;
 import com.binarysprite.evemat.entity.WalletTransactionDao;
 import com.binarysprite.evemat.entity.WalletTransactionDaoImpl;
+import com.binarysprite.evemat.update.UpdateEvent;
+import com.binarysprite.evemat.update.UpdateFacade;
+import com.binarysprite.evemat.update.UpdateListener;
 
 /**
  * アプリケーションのスタートポイントクラスです。
@@ -125,7 +130,7 @@ public class Start {
 
 		final TrayIcon icon = new TrayIcon(image);
 		final PopupMenu menu = new PopupMenu();
-		final MenuItem updateData = new MenuItem("Update Data");
+		final MenuItem updateData = new MenuItem("Updater Data");
 		final MenuItem startBrowserItem = new MenuItem("Start Browser");
 		final MenuItem exitItem = new MenuItem("Exit");
 
@@ -134,7 +139,35 @@ public class Start {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				
+			
+				try {
+					new UpdateFacade().updateAll(new UpdateListener() {
+
+						@Override
+						public void updateWillStart(UpdateEvent event) {
+							showMessage(event.getMessage(), MessageType.INFO);
+						}
+
+						@Override
+						public void updatePerformed(UpdateEvent event) {
+							showMessage(event.getMessage(), MessageType.INFO);
+						}
+						
+						
+					});
+				} catch (ApiException e1) {
+					showMessage("同期処理に失敗しました", MessageType.WARNING);
+				}
+			}
+			
+			private void showMessage(final String message, final MessageType messageType) {
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						icon.displayMessage("同期処理", message, messageType);
+					}
+				});
 			}
 		});
 		startBrowserItem.addActionListener(new ActionListener() {

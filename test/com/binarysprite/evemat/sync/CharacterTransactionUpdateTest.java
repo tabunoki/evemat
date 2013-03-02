@@ -15,8 +15,9 @@ import com.binarysprite.evemat.DB;
 import com.binarysprite.evemat.entity.AccountCharacter;
 import com.binarysprite.evemat.entity.AccountCharacterDao;
 import com.binarysprite.evemat.entity.AccountCharacterDaoImpl;
+import com.binarysprite.evemat.update.CharacterTransactionUpdate;
 
-public class CorporationTransactionSyncTest {
+public class CharacterTransactionUpdateTest {
 
 	@Test
 	public void testSynchronize() {
@@ -49,10 +50,10 @@ public class CorporationTransactionSyncTest {
 		
 		try {
 			for (ApiAuthorization authorization : authorizations) {
-				CorporationTransactionSync sync = new CorporationTransactionSync(
+				CharacterTransactionUpdate sync = new CharacterTransactionUpdate(
 						authorization);
 
-				sync.synchronize();
+				sync.update();
 
 			}
 		} catch (ApiException e) {

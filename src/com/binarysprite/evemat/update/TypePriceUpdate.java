@@ -1,4 +1,4 @@
-package com.binarysprite.evemat.sync;
+package com.binarysprite.evemat.update;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ import com.binarysprite.evemat.entity.ProductPrice;
 import com.binarysprite.evemat.entity.ProductPriceDao;
 import com.binarysprite.evemat.entity.ProductPriceDaoImpl;
 
-public class TypePriceSync implements EveSynchronizer {
+public class TypePriceUpdate implements Updater {
 
 	@Override
-	public void synchronize() {
+	public void update() {
 
 		final List<Integer> typeIDs = new ArrayList<Integer>();
 		final List<Integer> regionIDs = new ArrayList<Integer>();
