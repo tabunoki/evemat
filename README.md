@@ -29,42 +29,57 @@ Distributed under the MIT License.
 	<tr>
 		<th>Library</th>
 		<th>License</th>
+		<th>Note</th>
 	</tr>
 	<tr>
 		<td>commons-beanutils-1.8.3</td>
 		<td>Apache License, Version 2.0</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>commons-digester-2.1</td>
 		<td>Apache License, Version 2.0</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>H2 Database Engine</td>
 		<td>Mozilla Public License 1.1 or Eclipse Public License 1.0</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>eveapi-3.0.1</td>
 		<td>LGPL</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>jetty-7.5.4</td>
 		<td>Apache License, Version 2.0 or Eclipse Public License 1.0</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>Doma</td>
 		<td>Apache License, Version 2.0</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>slf4j-1.6.4</td>
 		<td>MIT License</td>
+		<td></td>
 	</tr>
 	<tr>
-		<td>wicket-1.5.3</td>
+		<td>wicket</td>
 		<td>Apache License, Version 2.0</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>joda-time</td>
+		<td>Apache License, Version 2.0</td>
+		<td>wicket-datetime.jar の使用に必要</td>
 	</tr>
 	<tr>
 		<td>Fugue Icons</td>
 		<td>Creative Commons Attribution 3.0 license</td>
+		<td></td>
 	</tr>
 </table>
 

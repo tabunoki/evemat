@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.wicket.datetime.PatternDateConverter;
+import org.apache.wicket.datetime.markup.html.basic.DateLabel;
+import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
@@ -13,11 +16,14 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.NavigationTo
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.seasar.doma.jdbc.SelectOptions;
 import org.seasar.doma.jdbc.tx.LocalTransaction;
 
+import com.binarysprite.evemat.Constants;
 import com.binarysprite.evemat.DB;
 import com.binarysprite.evemat.entity.WalletTransaction;
 import com.binarysprite.evemat.entity.WalletTransactionDao;
@@ -38,8 +44,8 @@ public class TransactionPage extends FramePage {
 	public TransactionPage() {
 		super();
 
-		final SortableDataProvider<WalletTransactionModelObject, Date> dataProvider =
-				new SortableDataProvider<WalletTransactionModelObject, Date>() {
+		final SortableDataProvider<WalletTransactionModelObject, String> dataProvider =
+				new SortableDataProvider<WalletTransactionModelObject, String>() {
 
 					@Override
 					public Iterator<? extends WalletTransactionModelObject> iterator(
@@ -86,19 +92,33 @@ public class TransactionPage extends FramePage {
 
 		List<IColumn<?, ?>> columns = new ArrayList<IColumn<?, ?>>();
 
-		columns.add(new PropertyColumn<Date, Date>(new Model<String>(
-				"When"), "transactionDateTime"));
-		columns.add(new PropertyColumn<String, String>(new Model<String>(
-				"Type Name"), "typeName"));
-		columns.add(new PropertyColumn<String, String>(new Model<String>(
-				"Price"), "price"));
-		columns.add(new PropertyColumn<String, String>(new Model<String>(
-				"Quantity"), "quantity"));
-		columns.add(new PropertyColumn<String, String>(new Model<String>(
-				"Client"), "clientName"));
-		columns.add(new PropertyColumn<String, String>(new Model<String>(
-				"Station"), "stationName"));
+		columns.add(new PropertyColumn<WalletTransactionModelObject, String>(
+				new Model<String>("When"), "transactionDateTime", "TRANSACTION_DATE_TIME") {
 
+			@Override
+			public void populateItem(
+					Item<ICellPopulator<WalletTransactionModelObject>> item,
+					String componentId,
+					IModel<WalletTransactionModelObject> rowModel) {
+				
+				item.add(new DateLabel(
+						componentId,
+						new PropertyModel<Date>(rowModel.getObject(), super.getPropertyExpression()),
+						new PatternDateConverter(Constants.DATE_TIME_PATTERN, false)));
+			}
+
+			@Override
+			public boolean isSortable() {
+				return true;
+			}
+			
+		});
+		columns.add(new PropertyColumn<String, String>(new Model<String>("Type Name"), "typeName"));
+		columns.add(new PropertyColumn<String, String>(new Model<String>("Price"), "price"));
+		columns.add(new PropertyColumn<String, String>(new Model<String>("Quantity"), "quantity"));
+		columns.add(new PropertyColumn<String, String>(new Model<String>("Client"), "clientName"));
+		columns.add(new PropertyColumn<String, String>(new Model<String>("Station"), "stationName"));
+		
 		DataTable table =
 				new DefaultDataTable(
 						"transactions",
@@ -121,6 +141,7 @@ public class TransactionPage extends FramePage {
  * WalletTransaction クラスをシリアライズするためのサブクラスです。
  * モデルオブジェクトは Seirializable である必要がありますが、
  * WalletTransaction は Doma が管理し生成するクラスのため Serializable を実装できないためです。
+ * 
  * @author Tabunoki
  *
  */
