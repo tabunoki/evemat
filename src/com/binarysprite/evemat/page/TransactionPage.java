@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.datetime.PatternDateConverter;
 import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
@@ -44,6 +45,9 @@ public class TransactionPage extends FramePage {
 	public TransactionPage() {
 		super();
 
+		/*
+		 * データテーブルで使用するデータプロバイダの生成
+		 */
 		final SortableDataProvider<WalletTransactionModelObject, String> dataProvider =
 				new SortableDataProvider<WalletTransactionModelObject, String>() {
 
@@ -90,10 +94,13 @@ public class TransactionPage extends FramePage {
 					}
 		};
 
-		List<IColumn<?, ?>> columns = new ArrayList<IColumn<?, ?>>();
+		/*
+		 * データテーブルで使用するカラムの生成
+		 */
+		List<IColumn<WalletTransactionModelObject, String>> columns = new ArrayList<IColumn<WalletTransactionModelObject, String>>();
 
 		columns.add(new PropertyColumn<WalletTransactionModelObject, String>(
-				new Model<String>("When"), "transactionDateTime", "TRANSACTION_DATE_TIME") {
+				new Model<String>("When"), "transactionDateTime") {
 
 			@Override
 			public void populateItem(
@@ -106,25 +113,49 @@ public class TransactionPage extends FramePage {
 						new PropertyModel<Date>(rowModel.getObject(), super.getPropertyExpression()),
 						new PatternDateConverter(Constants.DATE_TIME_PATTERN, false)));
 			}
-
-			@Override
-			public boolean isSortable() {
-				return true;
-			}
 			
 		});
-		columns.add(new PropertyColumn<String, String>(new Model<String>("Type Name"), "typeName"));
-		columns.add(new PropertyColumn<String, String>(new Model<String>("Price"), "price"));
-		columns.add(new PropertyColumn<String, String>(new Model<String>("Quantity"), "quantity"));
-		columns.add(new PropertyColumn<String, String>(new Model<String>("Client"), "clientName"));
-		columns.add(new PropertyColumn<String, String>(new Model<String>("Station"), "stationName"));
+		columns.add(new PropertyColumn<WalletTransactionModelObject, String>(new Model<String>("Type Name"), "typeName"));
+		columns.add(new PropertyColumn<WalletTransactionModelObject, String>(new Model<String>("Price"), "price") {
+
+			@Override
+			public void populateItem(
+					Item<ICellPopulator<WalletTransactionModelObject>> item,
+					String componentId,
+					IModel<WalletTransactionModelObject> rowModel) {
+				
+				final double price = rowModel.getObject().getPrice();
+				
+				if (rowModel.getObject().getTransactionType().equals("sell")) {
+					item.add(new AttributeModifier("class", "sell-price"));
+				} else {
+					item.add(new AttributeModifier("class", "buy-price"));
+				}
+				
+				item.add(new Label(componentId, Constants.PRICE_FORMAT.format(price)));
+			}
+		});
+		columns.add(new PropertyColumn<WalletTransactionModelObject, String>(new Model<String>("Quantity"), "quantity") {
+
+			@Override
+			public void populateItem(
+					Item<ICellPopulator<WalletTransactionModelObject>> item,
+					String componentId,
+					IModel<WalletTransactionModelObject> rowModel) {
+				
+				item.add(new AttributeModifier("class", "quantity"));
+				item.add(new Label(componentId, Constants.QUANTITY_FORMAT.format(rowModel.getObject().getQuantity())));
+			}
+		});
+		columns.add(new PropertyColumn<WalletTransactionModelObject, String>(new Model<String>("Client"), "clientName"));
+		columns.add(new PropertyColumn<WalletTransactionModelObject, String>(new Model<String>("Station"), "stationName"));
 		
-		DataTable table =
-				new DefaultDataTable(
-						"transactions",
-						columns,
-						dataProvider,
-						100);
+		/*
+		 * データテーブルの生成
+		 */
+		DataTable<WalletTransactionModelObject, String> table =
+				new DefaultDataTable<WalletTransactionModelObject, String>(
+						"transactions", columns, dataProvider, 100);
 		table.addBottomToolbar(new NavigationToolbar(table));
 		table.setVisibilityAllowed(true);
 		this.add(table);

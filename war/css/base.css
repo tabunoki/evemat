@@ -90,3 +90,19 @@ Character Page
 	border: 1px solid #bbb;
 }
 
+/* ------------------------------
+Transaction Page
+------------------------------ */
+.sell-price {
+	color: #00cc00;
+	text-align: right;
+}
+.buy-price {
+	color: #cc0000;
+	text-align: right;
+}
+.quantity * {
+	text-align: right;
+}
+
+
