@@ -7,14 +7,18 @@
 
 	 binarysprite
 	 ====================================================================== -->
-<project name="EVE MAT" default="default">
+<project name="EVE MAT" default="build">
 	<description>
 		EVE Manufacture Assistance Tool
 	</description>
 
+	<!-- ビルド先 -->
+	<property name="distribution" location="${basedir}${file.separator}..${file.separator}..${file.separator}distribution" />
 
-	<property name="app.directory" location="W:/EVE_MAT" />
+	<!-- ビルド先 + アプリケーションディレクトリ -->
+	<property name="distribution.appdir" location="${distribution}${file.separator}EVE MAT" />
 
+	<!-- クラスパス -->
 	<path id="classpath.lib">
 		<fileset dir="${basedir}/lib">
 			<include name="**/*.jar" />
@@ -24,31 +28,32 @@
 		</fileset>
 	</path>
 
+	<!-- クラスパス文字列 -->
 	<pathconvert property="app.classpath" refid="classpath.lib" pathsep=" ">
 		<map from="${basedir}" to="." />
 	</pathconvert>
 
 	<!-- ================================= 
-		  target: 
+		  target: build
 		 ================================= -->
-	<target name="default" description="EVE MAT">
+	<target name="build" description="EVE MAT">
 
-		<delete dir="${app.directory}" />
-		<mkdir dir="${app.directory}" />
+		<delete dir="${distribution.appdir}" />
+		<mkdir dir="${distribution.appdir}" />
 
 		<echo message="${app.classpath}" />
 
 		<!-- ライブラリ -->
-		<copy todir="${app.directory}/lib">
+		<copy todir="${distribution.appdir}/lib">
 			<fileset dir="${basedir}/lib" />
 		</copy>
 
 		<!-- WAR -->
-		<copy todir="${app.directory}/war">
+		<copy todir="${distribution.appdir}/war">
 			<fileset dir="${basedir}/war" />
 		</copy>
 
-		<jar destfile="${app.directory}/evemat.jar">
+		<jar destfile="${distribution.appdir}/evemat.jar">
 			<manifest>
 				<attribute name="Main-Class" value="com.binarysprite.evemat.Start" />
 				<attribute name="Class-Path" value="${app.classpath}" />
@@ -61,4 +66,11 @@
 		</jar>
 	</target>
 
+	<!-- ================================= 
+          target: build_zip              
+         ================================= -->
+	<target name="build_zip" depends="build" description="zip ファイルを生成します">
+
+		<zip zipfile="${distribution}${file.separator}evemat.zip" basedir="${distribution.appdir}" />
+	</target>
 </project>
