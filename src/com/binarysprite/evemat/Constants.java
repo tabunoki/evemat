@@ -117,8 +117,6 @@ public class Constants {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		LOGGER.info("App Data Directory: " + APP_DATA_DIR.getAbsolutePath());
 	}
 
 	/**
@@ -127,5 +125,4 @@ public class Constants {
 	private Constants() {
 		super();
 	}
-
 }

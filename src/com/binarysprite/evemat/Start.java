@@ -60,6 +60,14 @@ import com.binarysprite.evemat.update.UpdateListener;
  */
 public class Start {
 	
+	/**
+	 * アプリケーションのホストです。
+	 */
+	private static final String SERVER_HOST = "http://localhost";
+	
+	/**
+	 * アプリケーションのポートです。
+	 */
 	private static final int SERVER_PORT = 8080;
 
 	/**
@@ -68,6 +76,12 @@ public class Start {
 	public static void main(String[] args) {
 
 		try {
+			
+			/*
+			 * アプリケーションデータディレクトリはデータベースファイル、ログ、ロックファイル等を管理するため、
+			 * アプリケーション起動時の最初期に初期化されなければなりません。
+			 */
+			initAppDataDir();
 
 			if (isExecuted()) {
 				return;
@@ -111,7 +125,7 @@ public class Start {
 
 		Desktop desktop = Desktop.getDesktop();
 
-		desktop.browse(new URI("http://localhost:" + SERVER_PORT));
+		desktop.browse(new URI(SERVER_HOST + ":" + SERVER_PORT));
 	}
 
 	/**
@@ -200,7 +214,7 @@ public class Start {
 		
 		icon.displayMessage(
 				"EVE MAT Local Server",
-				"Start Server. (http://localhost:" + SERVER_PORT + ")",
+				"Start Server. (" + SERVER_HOST + ":" + SERVER_PORT + ")",
 				MessageType.INFO);
 	}
 
@@ -240,6 +254,20 @@ public class Start {
 		});
 
 		return false;
+	}
+	
+	/**
+	 * アプリケーションデータディレクトリを初期化します。
+	 * アプリケーションデータを格納するディレクトリが存在しない場合、ディレクトリを作成します。
+	 * 存在する場合は、このメソッドは何も処理しません。
+	 */
+	private static void initAppDataDir() {
+		
+		if (Constants.APP_DATA_DIR.exists()) {
+			return;
+		} else {
+			Constants.APP_DATA_DIR.mkdir();
+		}
 	}
 	
 	/**
