@@ -12,6 +12,9 @@
 		EVE Manufacture Assistance Tool
 	</description>
 
+	<!-- バージョン -->
+	<property name="app.version" value="1.0" />
+
 	<!-- ビルド先 -->
 	<property name="distribution" location="${basedir}${file.separator}..${file.separator}..${file.separator}distribution" />
 
@@ -71,6 +74,6 @@
          ================================= -->
 	<target name="build_zip" depends="build" description="zip ファイルを生成します">
 
-		<zip zipfile="${distribution}${file.separator}evemat.zip" basedir="${distribution.appdir}" />
+		<zip zipfile="${distribution}${file.separator}evemat_${app.version}.zip" basedir="${distribution.appdir}" />
 	</target>
 </project>
