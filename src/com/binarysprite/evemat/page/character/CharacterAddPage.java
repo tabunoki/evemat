@@ -3,25 +3,15 @@
  */
 package com.binarysprite.evemat.page.character;
 
-import java.util.Collection;
-
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.PropertyModel;
-import org.seasar.doma.jdbc.tx.LocalTransaction;
 
-import com.beimin.eveapi.account.characters.CharactersParser;
-import com.beimin.eveapi.account.characters.EveCharacter;
-import com.beimin.eveapi.core.ApiAuth;
-import com.beimin.eveapi.core.ApiAuthorization;
-import com.beimin.eveapi.core.ApiException;
-import com.binarysprite.evemat.DB;
-import com.binarysprite.evemat.entity.AccountCharacter;
-import com.binarysprite.evemat.entity.AccountCharacterDao;
-import com.binarysprite.evemat.entity.AccountCharacterDaoImpl;
-import com.binarysprite.evemat.object.User;
 import com.binarysprite.evemat.page.FramePage;
+import com.binarysprite.evemat.page.character.data.User;
+import com.binarysprite.evemat.service.character.CharacterRegisterService;
+import com.google.inject.Inject;
 
 /**
  * @author Tabunoki
@@ -45,7 +35,7 @@ public class CharacterAddPage extends FramePage {
 	public static final String WICKET_ID_VERIFICATION_CODE_TEXT_FIELD = "verificationCodeTextField";
 
 	/**
-	 * 
+	 * 入力項目のモデルオブジェクトです。
 	 */
 	private final User user = new User();
 
@@ -54,12 +44,23 @@ public class CharacterAddPage extends FramePage {
 	 */
 	private final Form<String> newCharacterForm = new Form<String>(WICKET_ID_NEW_CHARACTER_FORM) {
 
+		/* (非 Javadoc)
+		 * @see org.apache.wicket.markup.html.form.Form#onValidate()
+		 */
+		@Override
+		protected void onValidate() {
+			
+
+			alertPanel.setVisible(false);
+			infomationPanel.setVisible(false);
+		}
+
 		/**
 		 * {@inheritDoc}
 		 */
 		@Override
 		protected void onError() {
-			
+
 			alertPanel.setVisible(true);
 		}
 
@@ -68,27 +69,21 @@ public class CharacterAddPage extends FramePage {
 		 */
 		@Override
 		protected void onSubmit() {
+			
 
 			/*
 			 * キャラクターの登録
 			 */
-			if (user.getUserID() == null || user.getVarificationCode() == null || user.getVarificationCode().isEmpty()) {
-				return;
+			try {
+				characterRegisterService.register(user.getUserID(), user.getVarificationCode());
+
+				setResponsePage(new CharacterPage());
+
+			} catch (Exception e) {
+				
+				infomationPanel.setMessage(e.getMessage());
+				infomationPanel.setVisible(true);
 			}
-
-			final ApiAuthorization apiAuthorization = new ApiAuthorization(user.getUserID(), user.getVarificationCode());
-			final Collection<EveCharacter> eveCharacters;
-
-			eveCharacters = getEveCharacters(apiAuthorization);
-
-			if (eveCharacters.size() > 0) {
-				addCharacter(eveCharacters, apiAuthorization);
-			}
-
-			/*
-			 * ページ遷移
-			 */
-			setResponsePage(new CharacterPage());
 		}
 
 	};
@@ -104,6 +99,12 @@ public class CharacterAddPage extends FramePage {
 	 */
 	private final TextField<String> varificationCodeTextField = new TextField<String>(
 			WICKET_ID_VERIFICATION_CODE_TEXT_FIELD, new PropertyModel<String>(user, User.LABEL_VARIFICATION_CODE));
+
+	/**
+	 * 
+	 */
+	@Inject
+	private CharacterRegisterService characterRegisterService;
 
 	/**
 	 * コンストラクタです。
@@ -124,60 +125,6 @@ public class CharacterAddPage extends FramePage {
 
 		newCharacterForm.add(userIDTextField);
 		newCharacterForm.add(varificationCodeTextField);
-	}
-
-	/**
-	 * EVE API より取得したキャラクター情報をデータベースへ追加します。
-	 * 
-	 * @param eveCharacters
-	 */
-	private void addCharacter(Collection<EveCharacter> eveCharacters, ApiAuth<ApiAuthorization> apiAuth) {
-
-		LocalTransaction transaction = DB.getLocalTransaction();
-		try {
-			// トランザクションの開始
-			transaction.begin();
-
-			AccountCharacterDao dao = new AccountCharacterDaoImpl();
-
-			for (EveCharacter eveCharacter : eveCharacters) {
-
-				AccountCharacter character = new AccountCharacter();
-				character.setCharacterId(eveCharacter.getCharacterID());
-				character.setCharacterName(eveCharacter.getName());
-				character.setCorporationId(eveCharacter.getCorporationID());
-				character.setCoporationName(eveCharacter.getCorporationName());
-				character.setApiId(apiAuth.getKeyID());
-				character.setApiVerificationCode(apiAuth.getVCode());
-
-				dao.insert(character);
-			}
-
-			transaction.commit();
-
-		} finally {
-			transaction.rollback();
-		}
-	}
-
-	/**
-	 * EVE API よりキャラクター情報を取得します。
-	 * 
-	 * @param ID
-	 * @param verificationCode
-	 * @return
-	 */
-	private Collection<EveCharacter> getEveCharacters(ApiAuth<ApiAuthorization> apiAuth) {
-
-		Collection<EveCharacter> eveCharacters = null;
-		try {
-			eveCharacters = CharactersParser.getInstance().getResponse(apiAuth).getAll();
-
-		} catch (ApiException e) {
-			e.printStackTrace();
-		}
-
-		return eveCharacters;
 	}
 
 }

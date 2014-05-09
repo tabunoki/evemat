@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.binarysprite.evemat.object;
+package com.binarysprite.evemat.page.character.data;
 
 import java.io.Serializable;
 
