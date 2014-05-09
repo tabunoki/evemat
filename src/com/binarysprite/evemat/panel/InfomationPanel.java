@@ -66,7 +66,7 @@ public class InfomationPanel extends Panel {
 		/*
 		 * Default hidden.
 		 */
-		this.setVisible(true);
+		this.setVisible(false);
 	}
 
 	/**

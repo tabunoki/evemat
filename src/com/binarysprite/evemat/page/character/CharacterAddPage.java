@@ -54,6 +54,18 @@ public class CharacterAddPage extends FramePage {
 	 */
 	private final Form<String> newCharacterForm = new Form<String>(WICKET_ID_NEW_CHARACTER_FORM) {
 
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
+		protected void onError() {
+			
+			alertPanel.setVisible(true);
+		}
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		protected void onSubmit() {
 
@@ -103,6 +115,9 @@ public class CharacterAddPage extends FramePage {
 		 * コンポーネントの生成
 		 */
 		final Label title = new Label(WICKET_ID_PAGE_TITLE_LABEL, "New Character");
+
+		userIDTextField.setRequired(true);
+		varificationCodeTextField.setRequired(true);
 
 		this.add(title);
 		this.add(newCharacterForm);
