@@ -5,56 +5,101 @@
 	<meta http-equiv="content-script-type" content="text/javascript">
 	<meta http-equiv="Content-Style-Type" content="text/css">
 	<meta name="copyright" content="(c) binarysprite 2012">
-	
-	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.7.2/build/cssreset/cssreset-min.css">
-	<link rel="stylesheet" type="text/css" href="./css/base.css">
-	<link rel="stylesheet" type="text/css" href="./css/structure.css">
-	
-	<title>EVE Manufacturer Assistance Tool</title>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap -->
+	<link href="/bootstrap-3.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<!-- Application -->
+	<link href="/css/base.css" rel="stylesheet">
+
+	<title>EVE Manufacture Assistance Tool</title>
 </head>
 <body>
 
 
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/">EVE Manufacture Assistance Tool</a>
+		</div>
+		
+		<ul class="nav navbar-nav">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Character <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="/character">Character</a></li>
+					<li class="divider"></li>
+					<li><a href="/character/new">New Character</a></li>
+				</ul>
+			</li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Blueprint <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="/blueprint">Blueprint</a></li>
+					<li class="divider"></li>
+					<li><a href="/blueprint">New Group</a></li>
+					<li><a href="/blueprint">New Blueprint</a></li>
+				</ul>
+			</li>
+			<li><a href="/product">Product</a></li>
+			<li><a href="/transaction">Transaction</a></li>
+		</ul>
+		
+		<p class="navbar-text navbar-right">
+			<span wicket:id="serverOpen" id="status">Status</span>:
+			<span wicket:id="onlinePlayers" id="players">0</span> Players.
+		</p>
+	</div>
+</nav>
 
-<div id="header">
-	<h1>EVE Manufacturer Assistance Tool</h1>
+
+<div class="page-header container">
+  <h1 wicket:id="pageTitleLabel">Example page header <small>Subtext for header</small></h1>
 </div>
 
 
-
-<div id="menu">
-	<ul>
-		<li><a href="/character">Character</a></li>
-		<li><a href="/blueprint">Blueprint</a></li>
-		<li><a href="/product">Product</a></li>
-		<li><a href="/transaction">Transaction</a></li>
-	</ul>
+<div class="container">
+	<div wicket:id="alertPanel">
+		<p>Alert Panel</p>
+	</div>
+	<div wicket:id="infomationPanel">
+		<p>Infomation Panel</p>
+	</div>
 </div>
 
 
-
-<div id="content">
-
-<h2 wicket:id="title" id="pagetitle">Title</h2>
+<div class="container">
 
 <wicket:child>
 	ここに本文が入ります。
 </wicket:child>
+
 </div>
 
 
-
-<div id="footer">
-	<div id="serverstatus">
-		<span wicket:id="serverOpen" id="status">Status</span>:
-		<span wicket:id="onlinePlayers" id="players">0</span> Players.
+<footer id="footer">
+	<div id="copyright" class="container text-center">
+		<p class="text-muted">&copy; 2012 binarysprite.</p>
+		
 	</div>
-	<div id="copyright">
-		&copy; 2012 binarysprite.
-	</div>
-</div>
+</footer>
 
 
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>

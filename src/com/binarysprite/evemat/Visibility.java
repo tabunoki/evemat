@@ -4,10 +4,11 @@ import org.apache.wicket.Page;
 import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.protocol.http.WebApplication;
 
-import com.binarysprite.evemat.page.BlueprintPage;
-import com.binarysprite.evemat.page.CharacterPage;
-import com.binarysprite.evemat.page.ProductPage;
-import com.binarysprite.evemat.page.TransactionPage;
+import com.binarysprite.evemat.page.blueprint.BlueprintPage;
+import com.binarysprite.evemat.page.character.CharacterAddPage;
+import com.binarysprite.evemat.page.character.CharacterPage;
+import com.binarysprite.evemat.page.product.ProductPage;
+import com.binarysprite.evemat.page.transaction.TransactionPage;
 
 /**
  * Wicket によるアプリケーションクラスです。
@@ -40,6 +41,7 @@ public class Visibility extends WebApplication {
 		getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
 		
 		mountPage("/character", CharacterPage.class);
+		mountPage("/character/new", CharacterAddPage.class);
 		mountPage("/blueprint", BlueprintPage.class);
 		mountPage("/product", ProductPage.class);
 		mountPage("/transaction", TransactionPage.class);

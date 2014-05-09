@@ -1,4 +1,4 @@
-package com.binarysprite.evemat.page;
+package com.binarysprite.evemat.page.transaction;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,6 +29,7 @@ import com.binarysprite.evemat.DB;
 import com.binarysprite.evemat.entity.WalletTransaction;
 import com.binarysprite.evemat.entity.WalletTransactionDao;
 import com.binarysprite.evemat.entity.WalletTransactionDaoImpl;
+import com.binarysprite.evemat.page.FramePage;
 
 /**
  * 取引情報を表示するウェブページクラスです。
@@ -160,7 +161,7 @@ public class TransactionPage extends FramePage {
 		table.setVisibilityAllowed(true);
 		this.add(table);
 
-		Label title = new Label("title", "Transaction");
+		Label title = new Label(WICKET_ID_PAGE_TITLE_LABEL, "Transaction");
 		this.add(title);
 	}
 

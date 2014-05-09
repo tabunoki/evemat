@@ -11,14 +11,15 @@ import org.apache.wicket.util.file.File;
 
 /**
  * EVE Online の画像情報を取得するユーティリティクラスです。
+ * 
  * @author Tabunoki
- *
+ * 
  */
 public class EveImageService {
 
 	public static enum CharacterPortraitSize {
-		PIXEL_30(30), PIXEL_32(32), PIXEL_64(64), PIXEL_128(128), PIXEL_200(200),
-		PIXEL_256(256), PIXEL_512(512), PIXEL_1024(1024);
+		PIXEL_30(30), PIXEL_32(32), PIXEL_64(64), PIXEL_128(128), PIXEL_200(200), PIXEL_256(256), PIXEL_512(512), PIXEL_1024(
+				1024);
 
 		private final int integer;
 
@@ -38,8 +39,7 @@ public class EveImageService {
 	}
 
 	public static enum CorporationLogoSize {
-		PIXEL_30(30), PIXEL_32(32), PIXEL_64(64), PIXEL_128(128), PIXEL_200(200),
-		PIXEL_256(256);
+		PIXEL_30(30), PIXEL_32(32), PIXEL_64(64), PIXEL_128(128), PIXEL_200(200), PIXEL_256(256);
 
 		private final int integer;
 
@@ -99,8 +99,7 @@ public class EveImageService {
 	}
 
 	public static enum RenderSize {
-		PIXEL_32(32), PIXEL_64(64), PIXEL_128(128), PIXEL_256(256), PIXEL_512(
-				512);
+		PIXEL_32(32), PIXEL_64(64), PIXEL_128(128), PIXEL_256(256), PIXEL_512(512);
 
 		private final int integer;
 
@@ -127,22 +126,19 @@ public class EveImageService {
 	}
 
 	/**
-	 * 画像ファイルへのパスを取得します。
-	 * キャッシュとしてファイルが存在すればそのパスを、存在しなければ EVE API を利用してキャッシュファイルを作成します。
-	 * このメソッドは内部的に利用されるメソッドです。
+	 * 画像ファイルへのパスを取得します。 キャッシュとしてファイルが存在すればそのパスを、存在しなければ EVE API
+	 * を利用してキャッシュファイルを作成します。 このメソッドは内部的に利用されるメソッドです。
+	 * 
 	 * @param objects
 	 * @return
 	 * @throws IOException
 	 */
-	private static String getImagePath(String dir, long id, int size,
-			String extension) throws IOException {
+	private static String getImagePath(String dir, long id, int size, String extension) throws IOException {
 
 		Object[] objects = new Object[] { dir, id, size, extension };
-		
-		String staticPath = String.format(
-				"./war/cache/%s/%d_%d.%s", objects);
-		String dynamicPath = String.format(
-				"/cache/%s/%d_%d.%s", objects);
+
+		String staticPath = String.format("./war/cache/%s/%d_%d.%s", objects);
+		String dynamicPath = String.format("/cache/%s/%d_%d.%s", objects);
 
 		File iconFile = new File(staticPath);
 
@@ -155,8 +151,7 @@ public class EveImageService {
 
 		URL url = null;
 		try {
-			url = new URL(String.format(
-					"http://image.eveonline.com/%s/%d_%d.%s", objects));
+			url = new URL(String.format("http://image.eveonline.com/%s/%d_%d.%s", objects));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -166,8 +161,7 @@ public class EveImageService {
 		try {
 
 			inputStream = new BufferedInputStream(url.openStream());
-			outputStream = new BufferedOutputStream(new FileOutputStream(
-					iconFile));
+			outputStream = new BufferedOutputStream(new FileOutputStream(iconFile));
 
 			int len;
 			byte[] buf = new byte[1024];
@@ -196,12 +190,10 @@ public class EveImageService {
 	 *            ポートレート画像のサイズ
 	 * @return
 	 */
-	public static String getCharacterPortrait(long characterID,
-			CharacterPortraitSize size) {
+	public static String getCharacterPortrait(long characterID, CharacterPortraitSize size) {
 
 		try {
-			return getImagePath("Character", characterID, size.getInteger(),
-					"jpg");
+			return getImagePath("Character", characterID, size.getInteger(), "jpg");
 		} catch (IOException e) {
 			e.printStackTrace();
 
@@ -216,12 +208,10 @@ public class EveImageService {
 	 * @param size
 	 * @return
 	 */
-	public static String getCorporationLogo(long corporationID,
-			CorporationLogoSize size) {
+	public static String getCorporationLogo(long corporationID, CorporationLogoSize size) {
 
 		try {
-			return getImagePath("Corporation", corporationID,
-					size.getInteger(), "png");
+			return getImagePath("Corporation", corporationID, size.getInteger(), "png");
 		} catch (IOException e) {
 			e.printStackTrace();
 
@@ -236,12 +226,10 @@ public class EveImageService {
 	 * @param size
 	 * @return
 	 */
-	public static String getAllianceLogo(long allianceID,
-			AllianceLogoSize size) {
+	public static String getAllianceLogo(long allianceID, AllianceLogoSize size) {
 
 		try {
-			return getImagePath("Alliance", allianceID, size.getInteger(),
-					"png");
+			return getImagePath("Alliance", allianceID, size.getInteger(), "png");
 		} catch (IOException e) {
 			e.printStackTrace();
 
@@ -259,8 +247,7 @@ public class EveImageService {
 	public static String getTypeIcon(long typeID, TypeIconSize size) {
 
 		try {
-			return getImagePath("InventoryType", typeID, size.getInteger(),
-					"png");
+			return getImagePath("InventoryType", typeID, size.getInteger(), "png");
 		} catch (IOException e) {
 			e.printStackTrace();
 

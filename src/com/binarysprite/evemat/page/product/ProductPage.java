@@ -1,4 +1,4 @@
-package com.binarysprite.evemat.page;
+package com.binarysprite.evemat.page.product;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +18,7 @@ import com.binarysprite.evemat.EveImageService;
 import com.binarysprite.evemat.common.ExternalImage;
 import com.binarysprite.evemat.entity.ProductPriceDao;
 import com.binarysprite.evemat.entity.ProductPriceDaoImpl;
+import com.binarysprite.evemat.page.FramePage;
 
 public class ProductPage extends FramePage {
 
@@ -39,7 +40,7 @@ public class ProductPage extends FramePage {
 		/*
 		 * コンポーネントの生成
 		 */
-		final Label title = new Label("title", "Product");
+		final Label title = new Label(WICKET_ID_PAGE_TITLE_LABEL, "Product");
 		
 		final ListView<GroupDisplay> listView = new ListView<GroupDisplay>("groupList", new ListModel<GroupDisplay>(groupDisplays)) {
 

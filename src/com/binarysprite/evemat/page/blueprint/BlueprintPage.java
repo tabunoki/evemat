@@ -1,4 +1,4 @@
-package com.binarysprite.evemat.page;
+package com.binarysprite.evemat.page.blueprint;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,6 +36,7 @@ import com.binarysprite.evemat.entity.ProductGroupDaoImpl;
 import com.binarysprite.evemat.entity.Type;
 import com.binarysprite.evemat.entity.TypeDao;
 import com.binarysprite.evemat.entity.TypeDaoImpl;
+import com.binarysprite.evemat.page.FramePage;
 
 /**
  * ブループリント管理するウェブページクラスです。
@@ -147,7 +148,7 @@ public class BlueprintPage extends FramePage {
 		/*
 		 * コンポーネントの生成
 		 */
-		final Label title = new Label("title", "Blueprint");
+		final Label title = new Label(WICKET_ID_PAGE_TITLE_LABEL, "Blueprint");
 		final Form<ValueMap> blueprintForm = new Form<ValueMap>("blueprintForm");
 		final ListView<Blueprint> blueprintListView = new ListView<Blueprint>("blueprintList", new ListModel<Blueprint>(blueprintList)) {
 
