@@ -5,7 +5,9 @@ import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.guice.GuiceComponentInjector;
 import org.apache.wicket.protocol.http.WebApplication;
 
+import com.binarysprite.evemat.page.blueprint.BlueprintAddPage;
 import com.binarysprite.evemat.page.blueprint.BlueprintPage;
+import com.binarysprite.evemat.page.blueprint.GroupAddPage;
 import com.binarysprite.evemat.page.character.CharacterAddPage;
 import com.binarysprite.evemat.page.character.CharacterPage;
 import com.binarysprite.evemat.page.product.ProductPage;
@@ -40,6 +42,8 @@ public class Visibility extends WebApplication {
 		mountPage("/character", CharacterPage.class);
 		mountPage("/character/new", CharacterAddPage.class);
 		mountPage("/blueprint", BlueprintPage.class);
+		mountPage("/blueprint/new", BlueprintAddPage.class);
+		mountPage("/blueprint/group/new", GroupAddPage.class);
 		mountPage("/product", ProductPage.class);
 		mountPage("/transaction", TransactionPage.class);
 

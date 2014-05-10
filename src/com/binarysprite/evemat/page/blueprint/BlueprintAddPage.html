@@ -1,0 +1,35 @@
+<wicket:extend>
+
+
+<form wicket:id="newBlueprintForm">
+<table>
+	<tbody>
+		<tr>
+			<td>Type Name:</td>
+			<td><input type="text" name="blueprintTypeName" size="48" wicket:id="newBlueprintTypeName" /></td>
+		</tr>
+		<tr>
+			<td>Material Efficiency:</td>
+			<td><input type="text" name="me" maxlength="10" size="4" class="number" wicket:id="newMaterialEfficiency" /></td>
+		</tr>
+		<tr>
+			<td>Production Efficiency:</td>
+			<td><input type="text" name="pe" maxlength="10" size="4" class="number" wicket:id="newProductionEfficiency" /></td>
+		</tr>
+		<tr>
+			<td>Group:</td>
+			<td>
+				<select size="1" wicket:id="newGroupDropDownChoice">
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="new" class="command_button" wicket:id="addNewBlueprint" /></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+
+
+</wicket:extend>

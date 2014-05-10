@@ -1,0 +1,31 @@
+<wicket:extend>
+
+
+<form wicket:id="newGroupForm">
+<table>
+	<tbody>
+		<tr>
+			<td>Group Name:</td>
+			<td><input type="text" name="Group Name" size="32" wicket:id="groupName" /></td>
+		</tr>
+		<tr>
+			<td>Production Time:</td>
+			<td><input type="text" name="Production Time" size="4" wicket:id="productionTime" class="number" /></td>
+		</tr>
+		<tr>
+			<td>Character:</td>
+			<td wicket:id="charactersFeedback">
+				<select size="1" wicket:id="characterSelect">
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="new" class="command_button" wicket:id="newGroupButton" /></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+
+
+</wicket:extend>
