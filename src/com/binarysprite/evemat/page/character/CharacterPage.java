@@ -8,20 +8,19 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.seasar.doma.jdbc.tx.LocalTransaction;
 
 import com.beimin.eveapi.core.ApiAuthorization;
 import com.beimin.eveapi.core.ApiException;
 import com.beimin.eveapi.eve.character.CharacterInfoParser;
 import com.beimin.eveapi.eve.character.CharacterInfoResponse;
 import com.binarysprite.evemat.Constants;
-import com.binarysprite.evemat.DB;
-import com.binarysprite.evemat.EveImageService;
 import com.binarysprite.evemat.common.ExternalImage;
 import com.binarysprite.evemat.entity.AccountCharacter;
-import com.binarysprite.evemat.entity.AccountCharacterDao;
-import com.binarysprite.evemat.entity.AccountCharacterDaoImpl;
 import com.binarysprite.evemat.page.FramePage;
+import com.binarysprite.evemat.page.character.data.CharacterPortrait;
+import com.binarysprite.evemat.service.EveImageService;
+import com.binarysprite.evemat.service.character.CharacterGetService;
+import com.google.inject.Inject;
 
 @SuppressWarnings("serial")
 public class CharacterPage extends FramePage {
@@ -30,22 +29,15 @@ public class CharacterPage extends FramePage {
 	 * ポートレイトリストのモデルです。
 	 */
 	private final IModel<List<CharacterPortrait>> portraitModel = new LoadableDetachableModel<List<CharacterPortrait>>() {
+		
+		/**
+		 * {@inheritDoc}
+		 */
+		@Override
 		protected List<CharacterPortrait> load() {
 
+			final List<AccountCharacter> accountCharacters = characterGetService.get();
 			final List<CharacterPortrait> characterPortraits = new ArrayList<CharacterPortrait>();
-
-			AccountCharacterDao dao = new AccountCharacterDaoImpl();
-
-			List<AccountCharacter> accountCharacters;
-
-			LocalTransaction transaction = DB.getLocalTransaction();
-			try {
-				transaction.begin();
-				accountCharacters = dao.selectAll();
-
-			} finally {
-				transaction.rollback();
-			}
 
 			for (AccountCharacter accountCharacter : accountCharacters) {
 
@@ -94,6 +86,12 @@ public class CharacterPage extends FramePage {
 	};
 
 	/**
+	 * 
+	 */
+	@Inject
+	private CharacterGetService characterGetService;
+
+	/**
 	 * キャラクターページのコンストラクタです。
 	 */
 	public CharacterPage() {
@@ -110,52 +108,4 @@ public class CharacterPage extends FramePage {
 		this.add(title);
 		this.add(listView);
 	}
-
-	/**
-	 * 指定のキャラクターをデータベースから削除します。 キャラクターに属するグループとブループリントも同時に削除します。
-	 * 
-	 * @param ID
-	 * @param verificationCode
-	 */
-	private void deleteCharacter(int ID, String verificationCode) {
-
-	}
-}
-
-/**
- * 
- * @author Tabunoki
- * 
- */
-class CharacterPortrait {
-
-	public final String picture;
-
-	public final String name;
-
-	public final String corporation;
-
-	public final String location;
-
-	public final String activeShip;
-
-	public final String skills;
-
-	public final String wealth;
-
-	public final String securityStatus;
-
-	public CharacterPortrait(String picture, String name, String corporation, String location, String activeShip,
-			String skills, String wealth, String securityStatus) {
-		super();
-		this.picture = picture;
-		this.name = name;
-		this.corporation = corporation;
-		this.location = location;
-		this.activeShip = activeShip;
-		this.skills = skills;
-		this.wealth = wealth;
-		this.securityStatus = securityStatus;
-	}
-
 }

@@ -1,4 +1,4 @@
-package com.binarysprite.evemat;
+package com.binarysprite.evemat.service;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -10,13 +10,18 @@ import java.net.URL;
 import org.apache.wicket.util.file.File;
 
 /**
- * EVE Online の画像情報を取得するユーティリティクラスです。
+ * EVE Online の画像情報を取得するサービスクラスです。
  * 
  * @author Tabunoki
  * 
  */
 public class EveImageService {
 
+	/**
+	 * 
+	 * @author Tabunoki
+	 *
+	 */
 	public static enum CharacterPortraitSize {
 		PIXEL_30(30), PIXEL_32(32), PIXEL_64(64), PIXEL_128(128), PIXEL_200(200), PIXEL_256(256), PIXEL_512(512), PIXEL_1024(
 				1024);
@@ -38,6 +43,11 @@ public class EveImageService {
 		}
 	}
 
+	/**
+	 * 
+	 * @author Tabunoki
+	 *
+	 */
 	public static enum CorporationLogoSize {
 		PIXEL_30(30), PIXEL_32(32), PIXEL_64(64), PIXEL_128(128), PIXEL_200(200), PIXEL_256(256);
 
@@ -58,6 +68,11 @@ public class EveImageService {
 		}
 	}
 
+	/**
+	 * 
+	 * @author Tabunoki
+	 *
+	 */
 	public static enum AllianceLogoSize {
 		PIXEL_30(30), PIXEL_32(32), PIXEL_64(64), PIXEL_128(128);
 
@@ -78,6 +93,11 @@ public class EveImageService {
 		}
 	}
 
+	/**
+	 * 
+	 * @author Tabunoki
+	 *
+	 */
 	public static enum TypeIconSize {
 		PIXEL_32(32), PIXEL_64(64);
 
@@ -98,6 +118,11 @@ public class EveImageService {
 		}
 	}
 
+	/**
+	 * 
+	 * @author Tabunoki
+	 *
+	 */
 	public static enum RenderSize {
 		PIXEL_32(32), PIXEL_64(64), PIXEL_128(128), PIXEL_256(256), PIXEL_512(512);
 

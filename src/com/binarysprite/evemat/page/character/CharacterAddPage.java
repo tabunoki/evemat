@@ -44,8 +44,8 @@ public class CharacterAddPage extends FramePage {
 	 */
 	private final Form<String> newCharacterForm = new Form<String>(WICKET_ID_NEW_CHARACTER_FORM) {
 
-		/* (非 Javadoc)
-		 * @see org.apache.wicket.markup.html.form.Form#onValidate()
+		/**
+		 * {@inheritDoc}
 		 */
 		@Override
 		protected void onValidate() {
