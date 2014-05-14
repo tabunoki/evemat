@@ -18,7 +18,7 @@ Transaction Page
 	color: #cc0000;
 	text-align: right;
 }
-.quantity * {
+.quantity {
 	text-align: right;
 }
 
