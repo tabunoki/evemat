@@ -36,6 +36,36 @@ import com.binarysprite.evemat.page.blueprint.data.Group;
 public class GroupAddPage extends FramePage {
 
 	/**
+	 * 
+	 */
+	public static final String WICKET_ID_NEW_GROUP_FORM = "newGroupForm";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_GROUP_NAME_TEXTFIELD = "groupNameTextField";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_PRODUCTION_TIME_TEXTFIELD = "productionTimeTextField";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_CHARACTER_DROPDOWN_CHOICE = "characterDropDownChoice";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_CHARACTERS_FEEDBACK = "charactersFeedback";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_NEW_GROUP_BUTTON = "newGroupButton";
+
+	/**
 	 * グループ登録のモデルオブジェクトです。
 	 */
 	private final Group newGroup = new Group();
@@ -43,25 +73,27 @@ public class GroupAddPage extends FramePage {
 	/**
 	 * 
 	 */
-	private final Form<ValueMap> newGroupForm = new Form<ValueMap>("newGroupForm");
+	private final Form<ValueMap> newGroupForm = new Form<ValueMap>(WICKET_ID_NEW_GROUP_FORM);
 
 	/**
 	 * 
 	 */
-	private final TextField<String> newGroupName = new TextField<String>("groupName", new PropertyModel<String>(
-			newGroup, "groupName"));
+	private final TextField<String> newGroupName = new TextField<String>(
+			WICKET_ID_GROUP_NAME_TEXTFIELD,
+			new PropertyModel<String>(newGroup, "groupName"));
 
 	/**
 	 * 
 	 */
-	private final TextField<Integer> newProductionTime = new TextField<Integer>("productionTime",
+	private final TextField<Integer> newProductionTime = new TextField<Integer>(
+			WICKET_ID_PRODUCTION_TIME_TEXTFIELD,
 			new PropertyModel<Integer>(newGroup, "productionTime"));
 
 	/**
 	 * 
 	 */
 	private final DropDownChoice<CharaterSelect> newCharacterDropDownChoice = new DropDownChoice<CharaterSelect>(
-			"characterSelect", new PropertyModel<CharaterSelect>(newGroup, "characterSelect"),
+			WICKET_ID_CHARACTER_DROPDOWN_CHOICE, new PropertyModel<CharaterSelect>(newGroup, "characterSelect"),
 			new LoadableDetachableModel<List<CharaterSelect>>() {
 
 				@Override
@@ -106,13 +138,13 @@ public class GroupAddPage extends FramePage {
 	/**
 	 * 
 	 */
-	private final FormComponentFeedbackBorder charactersFeedbackBorder = new FormComponentFeedbackBorder(
-			"charactersFeedback");
+	private final FormComponentFeedbackBorder charactersFeedbackBorder =
+			new FormComponentFeedbackBorder(WICKET_ID_CHARACTERS_FEEDBACK);
 
 	/**
 	 * 
 	 */
-	private final Button addNewGroupButton = new Button("newGroupButton") {
+	private final Button addNewGroupButton = new Button(WICKET_ID_NEW_GROUP_BUTTON) {
 
 		@Override
 		public void onSubmit() {
@@ -161,7 +193,7 @@ public class GroupAddPage extends FramePage {
 		 * コンポーネントの追加
 		 */
 		this.add(title);
-		
+
 		this.add(newGroupForm);
 		newGroupForm.add(newGroupName);
 		newGroupForm.add(newProductionTime);
