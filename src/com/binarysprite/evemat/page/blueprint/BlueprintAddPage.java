@@ -40,6 +40,36 @@ import com.binarysprite.evemat.page.blueprint.data.GroupSelect;
 public class BlueprintAddPage extends FramePage {
 
 	/**
+	 * 
+	 */
+	public static final String WICKET_ID_NEW_BLUEPRINT_FORM = "newBlueprintForm";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_BLUEPRINT_TYPE_NAME_TEXTFIELD = "blueprintTypeNameTextField";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_MATERIAL_EFFICIENCY_TEXTFIELD = "materialEfficiencyTextField";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_PRODUCTION_EFFICIENCY_TEXTFIELD = "productionEfficiencyTextField";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_GROUP_DROPDOWN_CHOICE = "groupDropDownChoice";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_NEW_BLUEPRINT_BUTTON = "newBlueprintButton";
+
+	/**
 	 * ブループリント登録のモデルオブジェクトです。
 	 */
 	private final Blueprint newBlueprint = new Blueprint();
@@ -47,13 +77,13 @@ public class BlueprintAddPage extends FramePage {
 	/**
 	 * 
 	 */
-	private final Form<ValueMap> newBlueprintForm = new Form<ValueMap>("newBlueprintForm");
+	private final Form<ValueMap> newBlueprintForm = new Form<ValueMap>(WICKET_ID_NEW_BLUEPRINT_FORM);
 
 	/**
 	 * 
 	 */
 	private final AutoCompleteTextField<String> newBlueprintTypeName = new AutoCompleteTextField<String>(
-			"newBlueprintTypeName", new PropertyModel<String>(newBlueprint, "blueprintTypeName")) {
+			WICKET_ID_BLUEPRINT_TYPE_NAME_TEXTFIELD, new PropertyModel<String>(newBlueprint, "blueprintTypeName")) {
 
 		@Override
 		protected Iterator<String> getChoices(String arg0) {
@@ -93,20 +123,22 @@ public class BlueprintAddPage extends FramePage {
 	/**
 	 * 
 	 */
-	private final TextField<Integer> newMaterialEfficiency = new TextField<Integer>("newMaterialEfficiency",
+	private final TextField<Integer> newMaterialEfficiency = new TextField<Integer>(
+			WICKET_ID_MATERIAL_EFFICIENCY_TEXTFIELD,
 			new PropertyModel<Integer>(newBlueprint, "materialEfficiency"));
 
 	/**
 	 * 
 	 */
-	private final TextField<Integer> newProductionEfficiency = new TextField<Integer>("newProductionEfficiency",
+	private final TextField<Integer> newProductionEfficiency = new TextField<Integer>(
+			WICKET_ID_PRODUCTION_EFFICIENCY_TEXTFIELD,
 			new PropertyModel<Integer>(newBlueprint, "productionEfficiency"));
 
 	/**
 	 * 
 	 */
 	private final DropDownChoice<GroupSelect> newGroupDropDownChoice = new DropDownChoice<GroupSelect>(
-			"newGroupDropDownChoice", new PropertyModel<GroupSelect>(newBlueprint, "groupSelect"),
+			WICKET_ID_GROUP_DROPDOWN_CHOICE, new PropertyModel<GroupSelect>(newBlueprint, "groupSelect"),
 			new LoadableDetachableModel<List<GroupSelect>>() {
 
 				@Override
@@ -151,7 +183,7 @@ public class BlueprintAddPage extends FramePage {
 	/**
 	 * 
 	 */
-	private final Button addNewBlueprint = new Button("addNewBlueprint") {
+	private final Button addNewBlueprint = new Button(WICKET_ID_NEW_BLUEPRINT_BUTTON) {
 
 		@Override
 		public void onSubmit() {
@@ -202,7 +234,7 @@ public class BlueprintAddPage extends FramePage {
 		 * コンポーネントの追加
 		 */
 		this.add(title);
-		
+
 		this.add(newBlueprintForm);
 		newBlueprintForm.add(newBlueprintTypeName);
 		newBlueprintForm.add(newMaterialEfficiency);

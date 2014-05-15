@@ -1,34 +1,41 @@
 <wicket:extend>
 
 
-<form wicket:id="newBlueprintForm">
-<table>
-	<tbody>
-		<tr>
-			<td>Type Name:</td>
-			<td><input type="text" name="blueprintTypeName" size="48" wicket:id="newBlueprintTypeName" /></td>
-		</tr>
-		<tr>
-			<td>Material Efficiency:</td>
-			<td><input type="text" name="me" maxlength="10" size="4" class="number" wicket:id="newMaterialEfficiency" /></td>
-		</tr>
-		<tr>
-			<td>Production Efficiency:</td>
-			<td><input type="text" name="pe" maxlength="10" size="4" class="number" wicket:id="newProductionEfficiency" /></td>
-		</tr>
-		<tr>
-			<td>Group:</td>
-			<td>
-				<select size="1" wicket:id="newGroupDropDownChoice">
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td><input type="submit" value="new" class="command_button" wicket:id="addNewBlueprint" /></td>
-		</tr>
-	</tbody>
-</table>
+<form wicket:id="newBlueprintForm" class="form-horizontal">
+	<div class="form-group">
+		<label for="blueprintTypeName" class="col-sm-3 control-label">Type Name</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" id="blueprintTypeName" placeholder="Type Name"
+					size="48" wicket:id="blueprintTypeNameTextField" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="materialEfficiency" class="col-sm-3 control-label">Material Efficiency</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="materialEfficiency" placeholder="Email"
+					maxlength="10" size="4" wicket:id="materialEfficiencyTextField" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="productionEfficiency" class="col-sm-3 control-label">Production Efficiency</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="productionEfficiency" placeholder="Email"
+					maxlength="10" size="4" wicket:id="productionEfficiencyTextField" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="group" class="col-sm-3 control-label">Group</label>
+		<div class="col-sm-6">
+			<select size="1" class="form-control" id="group" wicket:id="groupDropDownChoice">
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-3 col-sm-9">
+			<button type="submit" class="btn btn-default" wicket:id="newBlueprintButton">New Blueprint</button>
+		</div>
+	</div>
 </form>
 
 
