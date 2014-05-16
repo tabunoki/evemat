@@ -8,6 +8,14 @@ footer {
 }
 
 /* ------------------------------
+Common
+------------------------------ */
+.table-align-middle td,
+.table-align-middle th {
+	vertical-align: middle !important;
+}
+
+/* ------------------------------
 Transaction Page
 ------------------------------ */
 .sell-price {

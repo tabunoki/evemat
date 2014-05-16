@@ -75,64 +75,9 @@ public class BlueprintPage extends FramePage {
 			item.add(new Label("blueprintTypeName", blueprint.getBlueprintTypeName()));
 			item.add(new TextField<Integer>("materialEfficiency", materialEfficiencyModel));
 			item.add(new TextField<Integer>("productionEfficiency", productionEfficiencyModel));
-			item.add(new Label("blueprintGroup", blueprint.getGroupSelect().getGroupName()));
-			item.add(new Button("updateBlueprint") {
-
-				@Override
-				public void onSubmit() {
-
-					ProductBlueprintDao blueprintDao = new ProductBlueprintDaoImpl();
-
-					LocalTransaction transaction = DB.getLocalTransaction();
-					try {
-						transaction.begin();
-
-						ProductBlueprint productBlueprint = blueprintDao.selectById(blueprint.getID());
-
-						productBlueprint.setMe(blueprint.getMaterialEfficiency());
-						productBlueprint.setPe(blueprint.getProductionEfficiency());
-
-						blueprintDao.update(productBlueprint);
-
-						transaction.commit();
-					} catch (Exception exception) {
-						transaction.rollback();
-					}
-
-					setResponsePage(new BlueprintPage());
-				}
-
-			});
-			item.add(new ConfirmButton("deleteBlueprint", "Blueprint を削除しますか？") {
-
-				@Override
-				public void onSubmit() {
-
-					ProductBlueprintDao blueprintDao = new ProductBlueprintDaoImpl();
-
-					LocalTransaction transaction = DB.getLocalTransaction();
-					try {
-						transaction.begin();
-
-						blueprintDao.delete(blueprintDao.selectById(blueprint.getID()));
-
-						transaction.commit();
-					} catch (Exception exception) {
-						transaction.rollback();
-					}
-
-					setResponsePage(new BlueprintPage());
-				}
-
-			}.setDefaultFormProcessing(false));
 
 		}
 	};
-
-	/**
-	 * 
-	 */
-	private final Form<ValueMap> groupForm = new Form<ValueMap>("groupForm");
 
 	/**
 	 * 
@@ -145,31 +90,7 @@ public class BlueprintPage extends FramePage {
 			final Group group = (Group) item.getModelObject();
 
 			item.add(new Label("listGroupName", group.getGroupName()));
-			item.add(new TextField<String>("listGroupProductionTime",
-					new PropertyModel<String>(group, "productionTime")));
 			item.add(new Label("listGroupCharacter", group.getCharacterSelect().getCharacterName()));
-			item.add(new ConfirmButton("deleteGroup", "Group を削除しますか？") {
-
-				@Override
-				public void onSubmit() {
-
-					ProductGroupDao groupDao = new ProductGroupDaoImpl();
-
-					LocalTransaction transaction = DB.getLocalTransaction();
-					try {
-						transaction.begin();
-
-						groupDao.delete(groupDao.selectById(group.getID()));
-
-						transaction.commit();
-					} catch (Exception exception) {
-						transaction.rollback();
-					}
-
-					setResponsePage(new BlueprintPage());
-				}
-
-			}.setDefaultFormProcessing(false));
 		}
 	};
 
@@ -252,8 +173,16 @@ public class BlueprintPage extends FramePage {
 		this.add(blueprintForm);
 		blueprintForm.add(blueprintListView);
 
-		this.add(groupForm);
-		groupForm.add(groupListView);
+		this.add(groupListView);
+		
+		blueprintForm.add(new Button("updateBlueprint") {});
+		blueprintForm.add(new ConfirmButton("deleteBlueprint", "Blueprint を削除しますか？") {
+
+			@Override
+			public void onSubmit() {}
+
+		}.setDefaultFormProcessing(false));
+
 	}
 
 }
