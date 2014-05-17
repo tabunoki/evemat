@@ -41,6 +41,41 @@ import com.binarysprite.evemat.page.blueprint.data.GroupSelect;
  */
 @SuppressWarnings("serial")
 public class BlueprintPage extends FramePage {
+	
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_BLUEPRINT_FORM = "blueprintForm";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_BLUEPRINT_LISTVIEW = "blueprintListView";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_BLUEPRINT_TYPE_NAME_LABLE = "blueprintTypeNameLable";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_MATERIAL_EFFICIENCY_TEXTFIELD = "materialEfficiencyTextField";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_PRODUCTION_EFFICIENCY_TEXTFIELD = "productionEfficiencyTextField";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_GROUP_NAME_LABEL = "groupNameLabel";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_CHARACTER_NAME_LABEL = "characterNameLabel";
 
 	/**
 	 * ブループリント一覧のモデルオブジェクトです。
@@ -55,12 +90,12 @@ public class BlueprintPage extends FramePage {
 	/**
 	 * 
 	 */
-	private final Form<ValueMap> blueprintForm = new Form<ValueMap>("blueprintForm");
+	private final Form<ValueMap> blueprintForm = new Form<ValueMap>(WICKET_ID_BLUEPRINT_FORM);
 
 	/**
 	 * 
 	 */
-	private final ListView<Blueprint> blueprintListView = new ListView<Blueprint>("blueprintList",
+	private final ListView<Blueprint> blueprintListView = new ListView<Blueprint>(WICKET_ID_BLUEPRINT_LISTVIEW,
 			new ListModel<Blueprint>(blueprintList)) {
 
 		@Override
@@ -68,13 +103,14 @@ public class BlueprintPage extends FramePage {
 
 			final Blueprint blueprint = (Blueprint) item.getModelObject();
 
-			final IModel<Integer> materialEfficiencyModel = new PropertyModel<Integer>(blueprint, "materialEfficiency");
-			final IModel<Integer> productionEfficiencyModel = new PropertyModel<Integer>(blueprint,
-					"productionEfficiency");
+			final IModel<Integer> materialEfficiencyModel =
+					new PropertyModel<Integer>(blueprint, "materialEfficiency");
+			final IModel<Integer> productionEfficiencyModel =
+					new PropertyModel<Integer>(blueprint, "productionEfficiency");
 
-			item.add(new Label("blueprintTypeName", blueprint.getBlueprintTypeName()));
-			item.add(new TextField<Integer>("materialEfficiency", materialEfficiencyModel));
-			item.add(new TextField<Integer>("productionEfficiency", productionEfficiencyModel));
+			item.add(new Label(WICKET_ID_BLUEPRINT_TYPE_NAME_LABLE, blueprint.getBlueprintTypeName()));
+			item.add(new TextField<Integer>(WICKET_ID_MATERIAL_EFFICIENCY_TEXTFIELD, materialEfficiencyModel));
+			item.add(new TextField<Integer>(WICKET_ID_PRODUCTION_EFFICIENCY_TEXTFIELD, productionEfficiencyModel));
 
 		}
 	};
@@ -89,8 +125,8 @@ public class BlueprintPage extends FramePage {
 
 			final Group group = (Group) item.getModelObject();
 
-			item.add(new Label("listGroupName", group.getGroupName()));
-			item.add(new Label("listGroupCharacter", group.getCharacterSelect().getCharacterName()));
+			item.add(new Label(WICKET_ID_GROUP_NAME_LABEL, group.getGroupName()));
+			item.add(new Label(WICKET_ID_CHARACTER_NAME_LABEL, group.getCharacterSelect().getCharacterName()));
 		}
 	};
 
