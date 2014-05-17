@@ -16,7 +16,7 @@
 		</ul>
 	</div>
 
-	<!-- Blueprint List -->
+	<!-- Group Summary and Blueprint List -->
 	<div class="col-xs-12 col-sm-9">
 		<form wicket:id="blueprintForm">
 			<table class="table table-condensed table-align-middle">
@@ -53,13 +53,13 @@
 						<th></th>
 						<th></th>
 						<th colspan="2" class="text-right">
-							<button type="button" class="btn btn-default"  wicket:id="updateBlueprint">
+							<button type="button" class="btn btn-default" wicket:id="updateBlueprint">
 								<span class="glyphicon glyphicon-save"></span>
 								Update
 							</button>
 						</th>
 						<th>
-							<button type="button" class="btn btn-default"  wicket:id="deleteBlueprint">
+							<button type="button" class="btn btn-default" wicket:id="deleteBlueprint">
 								<span class="glyphicon glyphicon-remove"></span>
 								Delete
 							</button>
@@ -67,6 +67,29 @@
 					</tr>
 				</tfoot>
 			</table>
+		</form>
+
+		<form class="form-inline panel panel-default">
+			<div class="panel-heading">
+				<span class="badge pull-right">Character Name</span>
+				<span>Group Name</span>
+			</div>
+			<div class="panel-body">
+				<div class="form-group pull-left">
+					<label for="productionTime">Production Time</label>
+					<input type="text" id="productionTime" maxlength="10" size="8" class="form-control" />
+				</div>
+				<div class="form-group pull-right">
+					<button type="button" class="btn btn-default">
+						<span class="glyphicon glyphicon-save"></span>
+						Update
+					</button>
+					<button type="button" class="btn btn-default">
+						<span class="glyphicon glyphicon-remove"></span>
+						Delete
+					</button>
+				</div>
+			</div>
 		</form>
 	</div>
 </div>
