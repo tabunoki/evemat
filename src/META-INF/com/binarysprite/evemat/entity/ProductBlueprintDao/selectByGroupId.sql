@@ -1,0 +1,6 @@
+select
+	*
+from
+	PRODUCT_BLUEPRINT
+where
+	PRODUCT_BLUEPRINT.PRODUCT_GROUP = /* groupId */1

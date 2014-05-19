@@ -35,7 +35,14 @@ public interface ProductBlueprintDao {
 	 */
 	@Select
 	List<ProductBlueprint> selectAll();
-	
+
+	/**
+	 * 
+	 * @return
+	 */
+	@Select
+	List<ProductBlueprint> selectByGroupId(int groupId);
+
 	/**
 	 * 
 	 * @return

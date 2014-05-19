@@ -7,31 +7,19 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.util.value.ValueMap;
-import org.seasar.doma.jdbc.tx.LocalTransaction;
 
-import com.binarysprite.evemat.DB;
 import com.binarysprite.evemat.common.ConfirmButton;
-import com.binarysprite.evemat.entity.AccountCharacterDao;
-import com.binarysprite.evemat.entity.AccountCharacterDaoImpl;
-import com.binarysprite.evemat.entity.ProductBlueprint;
-import com.binarysprite.evemat.entity.ProductBlueprintDao;
-import com.binarysprite.evemat.entity.ProductBlueprintDaoImpl;
-import com.binarysprite.evemat.entity.ProductGroup;
-import com.binarysprite.evemat.entity.ProductGroupDao;
-import com.binarysprite.evemat.entity.ProductGroupDaoImpl;
-import com.binarysprite.evemat.entity.TypeDao;
-import com.binarysprite.evemat.entity.TypeDaoImpl;
 import com.binarysprite.evemat.page.FramePage;
 import com.binarysprite.evemat.page.blueprint.data.Blueprint;
-import com.binarysprite.evemat.page.blueprint.data.CharaterSelect;
 import com.binarysprite.evemat.page.blueprint.data.Group;
-import com.binarysprite.evemat.page.blueprint.data.GroupSelect;
+import com.google.inject.Inject;
 
 /**
  * ブループリント管理するウェブページクラスです。
@@ -41,7 +29,7 @@ import com.binarysprite.evemat.page.blueprint.data.GroupSelect;
  */
 @SuppressWarnings("serial")
 public class BlueprintPage extends FramePage {
-	
+
 	/**
 	 * 
 	 */
@@ -70,6 +58,26 @@ public class BlueprintPage extends FramePage {
 	/**
 	 * 
 	 */
+	public static final String WICKET_ID_UPDATE_BLUPRINT_BUTTON = "updateBluprintButton";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_DELETE_BLUPRINT_BUTTON = "deleteBlueprintButton";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_GROUP_LIST_VIEW = "groupListView";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_GROUP_LINK = "groupLink";
+
+	/**
+	 * 
+	 */
 	public static final String WICKET_ID_GROUP_NAME_LABEL = "groupNameLabel";
 
 	/**
@@ -78,14 +86,29 @@ public class BlueprintPage extends FramePage {
 	public static final String WICKET_ID_CHARACTER_NAME_LABEL = "characterNameLabel";
 
 	/**
-	 * ブループリント一覧のモデルオブジェクトです。
+	 * 
 	 */
-	private final List<Blueprint> blueprintList = new ArrayList<Blueprint>();
+	public static final String WICKET_ID_PRODUCTION_TIME_TEXTFIELD = "productionTimeTextField";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_UPDATE_GROUP_BUTTON = "updateGroupButton";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_DELETE_GROUP_BUTTON = "deleteGroupButton";
 
 	/**
 	 * グループ一覧のモデルオブジェクトです。
 	 */
 	private final List<Group> groupList = new ArrayList<Group>();
+
+	/**
+	 * ブループリント一覧のモデルオブジェクトです。
+	 */
+	private final List<Blueprint> blueprintList = new ArrayList<Blueprint>();
 
 	/**
 	 * 
@@ -118,17 +141,56 @@ public class BlueprintPage extends FramePage {
 	/**
 	 * 
 	 */
-	private final ListView<Group> groupListView = new ListView<Group>("groupList", new ListModel<Group>(groupList)) {
+	private final Button updateBluprintButton = new ConfirmButton(WICKET_ID_UPDATE_BLUPRINT_BUTTON, "");
+
+	/**
+	 * 
+	 */
+	private final Button deleteBluprintButton = new ConfirmButton(WICKET_ID_DELETE_BLUPRINT_BUTTON, "");
+
+	/**
+	 * 
+	 */
+	private final ListView<Group> groupListView = new ListView<Group>(WICKET_ID_GROUP_LIST_VIEW,
+			new ListModel<Group>(groupList)) {
 
 		@Override
 		protected void populateItem(ListItem<Group> item) {
 
 			final Group group = (Group) item.getModelObject();
 
-			item.add(new Label(WICKET_ID_GROUP_NAME_LABEL, group.getGroupName()));
-			item.add(new Label(WICKET_ID_CHARACTER_NAME_LABEL, group.getCharacterSelect().getCharacterName()));
+			/*
+			 * コンポーネントの生成
+			 */
+			final Link<Void> groupLink = new Link<Void>(WICKET_ID_GROUP_LINK) {
+
+				@Override
+				public void onClick() {
+
+					blueprintList.clear();
+					blueprintList.addAll(bluePrintPageService.getBlueprints(group.getID()));
+
+				}
+			};
+			final Label groupNameLabel =
+					new Label(WICKET_ID_GROUP_NAME_LABEL, group.getGroupName());
+			final Label characterNameLabel =
+					new Label(WICKET_ID_CHARACTER_NAME_LABEL, group.getCharacterSelect().getCharacterName());
+
+			/*
+			 * コンポーネントの組み立て
+			 */
+			item.add(groupLink);
+			groupLink.add(groupNameLabel);
+			groupLink.add(characterNameLabel);
 		}
 	};
+
+	/**
+	 * 
+	 */
+	@Inject
+	private BluePrintPageService bluePrintPageService;
 
 	/**
 	 * 
@@ -136,65 +198,9 @@ public class BlueprintPage extends FramePage {
 	public BlueprintPage() {
 		super();
 
-		/*
-		 * TODO サービス化
-		 */
-		{
-			ProductBlueprintDao blueprintDao = new ProductBlueprintDaoImpl();
-			TypeDao typeDao = new TypeDaoImpl();
-			ProductGroupDao productGroupDao = new ProductGroupDaoImpl();
+		groupList.addAll(bluePrintPageService.getGroups());
 
-			List<ProductBlueprint> productBlueprints;
-
-			LocalTransaction transaction = DB.getLocalTransaction();
-			try {
-				transaction.begin();
-				productBlueprints = blueprintDao.selectAll();
-
-				for (ProductBlueprint productBlueprint : productBlueprints) {
-
-					String characterName;
-
-					characterName = typeDao.selectById(productBlueprint.getBlueprintTypeId()).getTypeName();
-
-					blueprintList.add(new Blueprint(productBlueprint.getId(), productBlueprint.getBlueprintTypeId(),
-							characterName, productBlueprint.getMe(), productBlueprint.getPe(), new GroupSelect(
-									productBlueprint.getProductGroup(), productGroupDao.selectById(
-											productBlueprint.getProductGroup()).getGroupName())));
-
-				}
-
-			} finally {
-				transaction.rollback();
-			}
-		}
-
-		{
-			ProductGroupDao productGroupDao = new ProductGroupDaoImpl();
-			AccountCharacterDao accountCharacterDao = new AccountCharacterDaoImpl();
-
-			List<ProductGroup> productGroups;
-
-			LocalTransaction transaction = DB.getLocalTransaction();
-			try {
-				transaction.begin();
-				productGroups = productGroupDao.selectAll();
-
-				for (ProductGroup productGroup : productGroups) {
-
-					String characterName;
-
-					characterName = accountCharacterDao.selectById(productGroup.getCharacterId()).getCharacterName();
-
-					groupList.add(new Group(productGroup.getId(), productGroup.getGroupName(), productGroup
-							.getProductionTime(), new CharaterSelect(productGroup.getCharacterId(), characterName)));
-
-				}
-
-			} finally {
-				transaction.rollback();
-			}
-		}
+		blueprintList.addAll(bluePrintPageService.getBlueprints(groupList.get(0).getID()));
 
 		/*
 		 * コンポーネントの生成
@@ -208,17 +214,10 @@ public class BlueprintPage extends FramePage {
 
 		this.add(blueprintForm);
 		blueprintForm.add(blueprintListView);
+		blueprintForm.add(updateBluprintButton);
+		blueprintForm.add(deleteBluprintButton);
 
 		this.add(groupListView);
-		
-		blueprintForm.add(new Button("updateBlueprint") {});
-		blueprintForm.add(new ConfirmButton("deleteBlueprint", "Blueprint を削除しますか？") {
-
-			@Override
-			public void onSubmit() {}
-
-		}.setDefaultFormProcessing(false));
 
 	}
-
 }

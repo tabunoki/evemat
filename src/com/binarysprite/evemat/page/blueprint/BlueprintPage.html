@@ -7,8 +7,8 @@
 	<!-- Group Navigation -->
 	<div class="col-xs-12 col-sm-3">
 		<ul class="nav nav-pills nav-stacked">
-			<li wicket:id="groupList">
-				<a href="#">
+			<li wicket:id="groupListView">
+				<a href="#" wicket:id="groupLink">
 					<span class="badge pull-right" wicket:id="characterNameLabel"></span>
 					<span wicket:id="groupNameLabel"></span>
 				</a>
@@ -55,13 +55,13 @@
 						<th></th>
 						<th></th>
 						<th colspan="2" class="text-right">
-							<button type="button" class="btn btn-default" wicket:id="updateBlueprint">
+							<button type="button" class="btn btn-default" wicket:id="updateBluprintButton">
 								<span class="glyphicon glyphicon-save"></span>
 								Update
 							</button>
 						</th>
 						<th>
-							<button type="button" class="btn btn-default" wicket:id="deleteBlueprint">
+							<button type="button" class="btn btn-default" wicket:id="deleteBlueprintButton">
 								<span class="glyphicon glyphicon-remove"></span>
 								Delete
 							</button>
