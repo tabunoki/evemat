@@ -16,9 +16,11 @@ import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.util.value.ValueMap;
 
 import com.binarysprite.evemat.component.ConfirmButton;
+import com.binarysprite.evemat.component.ExternalImage;
 import com.binarysprite.evemat.page.FramePage;
 import com.binarysprite.evemat.page.blueprint.data.Blueprint;
 import com.binarysprite.evemat.page.blueprint.data.Group;
+import com.binarysprite.evemat.util.EveImageService;
 import com.google.inject.Inject;
 
 /**
@@ -39,6 +41,11 @@ public class BlueprintPage extends FramePage {
 	 * 
 	 */
 	public static final String WICKET_ID_BLUEPRINT_LISTVIEW = "blueprintListView";
+
+	/**
+	 * 
+	 */
+	public static final String WICKET_ID_BLUEPRINT_TYPE_IMAGE = "blueprintTypeImage";
 
 	/**
 	 * 
@@ -131,6 +138,9 @@ public class BlueprintPage extends FramePage {
 			final IModel<Integer> productionEfficiencyModel =
 					new PropertyModel<Integer>(blueprint, "productionEfficiency");
 
+			item.add(new ExternalImage(
+					WICKET_ID_BLUEPRINT_TYPE_IMAGE,
+					EveImageService.getTypeIcon(blueprint.getBlueprintTypeID(), EveImageService.TypeIconSize.PIXEL_32)));
 			item.add(new Label(WICKET_ID_BLUEPRINT_TYPE_NAME_LABLE, blueprint.getBlueprintTypeName()));
 			item.add(new TextField<Integer>(WICKET_ID_MATERIAL_EFFICIENCY_TEXTFIELD, materialEfficiencyModel));
 			item.add(new TextField<Integer>(WICKET_ID_PRODUCTION_EFFICIENCY_TEXTFIELD, productionEfficiencyModel));
