@@ -18,8 +18,6 @@ import com.binarysprite.evemat.entity.WalletTransaction;
 import com.binarysprite.evemat.page.FramePage;
 import com.binarysprite.evemat.page.transaction.data.WalletTransactionModelObject;
 import com.binarysprite.evemat.panel.PaginationPanel;
-import com.binarysprite.evemat.service.transaction.TransactionCountService;
-import com.binarysprite.evemat.service.transaction.TransactionSelectService;
 import com.google.inject.Inject;
 
 /**
@@ -87,7 +85,7 @@ public class TransactionPage extends FramePage {
 				@Override
 				public Iterator<? extends WalletTransactionModelObject> iterator(long first, long count) {
 
-					List<WalletTransaction> walletTransactions = transactionSelectService.select(first, count);
+					List<WalletTransaction> walletTransactions = transactionPageService.select(first, count);
 
 					List<WalletTransactionModelObject> walletTransactionsModelObjects = new ArrayList<WalletTransactionModelObject>();
 
@@ -113,7 +111,7 @@ public class TransactionPage extends FramePage {
 				@Override
 				public long size() {
 
-					return transactionCountService.count();
+					return transactionPageService.count();
 				}
 
 			};
@@ -181,13 +179,7 @@ public class TransactionPage extends FramePage {
 	 * 
 	 */
 	@Inject
-	private TransactionSelectService transactionSelectService;
-
-	/**
-	 * 
-	 */
-	@Inject
-	private TransactionCountService transactionCountService;
+	private TransactionPageService transactionPageService;
 
 	/**
 	 * 

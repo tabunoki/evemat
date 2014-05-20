@@ -10,7 +10,6 @@ import org.apache.wicket.model.PropertyModel;
 
 import com.binarysprite.evemat.page.FramePage;
 import com.binarysprite.evemat.page.character.data.User;
-import com.binarysprite.evemat.service.character.CharacterRegisterService;
 import com.google.inject.Inject;
 
 /**
@@ -75,7 +74,7 @@ public class CharacterAddPage extends FramePage {
 			 * キャラクターの登録
 			 */
 			try {
-				characterRegisterService.register(user.getUserID(), user.getVarificationCode());
+				characterAddPageService.register(user.getUserID(), user.getVarificationCode());
 
 				setResponsePage(new CharacterPage());
 
@@ -104,7 +103,7 @@ public class CharacterAddPage extends FramePage {
 	 * 
 	 */
 	@Inject
-	private CharacterRegisterService characterRegisterService;
+	private CharacterAddPageService characterAddPageService;
 
 	/**
 	 * コンストラクタです。

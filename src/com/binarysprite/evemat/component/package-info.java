@@ -1,4 +1,4 @@
 /**
  * ウェブアプリケーションの共通部品をまとめたパッケージです。
  */
-package com.binarysprite.evemat.common;
+package com.binarysprite.evemat.component;

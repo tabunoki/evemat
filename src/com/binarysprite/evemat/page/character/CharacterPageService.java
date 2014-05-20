@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.binarysprite.evemat.service.character;
+package com.binarysprite.evemat.page.character;
 
 import java.util.List;
 
@@ -12,11 +9,7 @@ import com.binarysprite.evemat.entity.AccountCharacter;
 import com.binarysprite.evemat.entity.AccountCharacterDao;
 import com.binarysprite.evemat.entity.AccountCharacterDaoImpl;
 
-/**
- * @author Tabunoki
- * 
- */
-public class CharacterGetService {
+public class CharacterPageService {
 
 	/**
 	 * 
@@ -38,5 +31,12 @@ public class CharacterGetService {
 		}
 
 		return accountCharacters;
+	}
+
+	/**
+	 * 指定のキャラクターをデータベースから削除します。 キャラクターに属するグループとブループリントも同時に削除します。
+	 */
+	public void delete() {
+
 	}
 }

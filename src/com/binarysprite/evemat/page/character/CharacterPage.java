@@ -14,12 +14,11 @@ import com.beimin.eveapi.core.ApiException;
 import com.beimin.eveapi.eve.character.CharacterInfoParser;
 import com.beimin.eveapi.eve.character.CharacterInfoResponse;
 import com.binarysprite.evemat.Constants;
-import com.binarysprite.evemat.common.ExternalImage;
+import com.binarysprite.evemat.component.ExternalImage;
 import com.binarysprite.evemat.entity.AccountCharacter;
 import com.binarysprite.evemat.page.FramePage;
 import com.binarysprite.evemat.page.character.data.CharacterPortrait;
-import com.binarysprite.evemat.service.EveImageService;
-import com.binarysprite.evemat.service.character.CharacterGetService;
+import com.binarysprite.evemat.util.EveImageService;
 import com.google.inject.Inject;
 
 @SuppressWarnings("serial")
@@ -36,7 +35,7 @@ public class CharacterPage extends FramePage {
 		@Override
 		protected List<CharacterPortrait> load() {
 
-			final List<AccountCharacter> accountCharacters = characterGetService.get();
+			final List<AccountCharacter> accountCharacters = characterPageService.get();
 			final List<CharacterPortrait> characterPortraits = new ArrayList<CharacterPortrait>();
 
 			for (AccountCharacter accountCharacter : accountCharacters) {
@@ -89,7 +88,7 @@ public class CharacterPage extends FramePage {
 	 * 
 	 */
 	@Inject
-	private CharacterGetService characterGetService;
+	private CharacterPageService characterPageService;
 
 	/**
 	 * キャラクターページのコンストラクタです。

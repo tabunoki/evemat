@@ -14,11 +14,11 @@ import org.seasar.doma.jdbc.tx.LocalTransaction;
 
 import com.binarysprite.evemat.Constants;
 import com.binarysprite.evemat.DB;
-import com.binarysprite.evemat.common.ExternalImage;
+import com.binarysprite.evemat.component.ExternalImage;
 import com.binarysprite.evemat.entity.ProductPriceDao;
 import com.binarysprite.evemat.entity.ProductPriceDaoImpl;
 import com.binarysprite.evemat.page.FramePage;
-import com.binarysprite.evemat.service.EveImageService;
+import com.binarysprite.evemat.util.EveImageService;
 
 public class ProductPage extends FramePage {
 

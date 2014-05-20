@@ -15,7 +15,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.util.value.ValueMap;
 
-import com.binarysprite.evemat.common.ConfirmButton;
+import com.binarysprite.evemat.component.ConfirmButton;
 import com.binarysprite.evemat.page.FramePage;
 import com.binarysprite.evemat.page.blueprint.data.Blueprint;
 import com.binarysprite.evemat.page.blueprint.data.Group;

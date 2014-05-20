@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.binarysprite.evemat.service.transaction;
+package com.binarysprite.evemat.page.transaction;
 
 import java.util.List;
 
@@ -17,7 +17,26 @@ import com.binarysprite.evemat.entity.WalletTransactionDaoImpl;
  * @author Tabunoki
  * 
  */
-public class TransactionSelectService {
+public class TransactionPageService {
+
+	/**
+	 * 
+	 * @return
+	 */
+	public long count() {
+
+		WalletTransactionDao dao = new WalletTransactionDaoImpl();
+
+		LocalTransaction transaction = DB.getLocalTransaction();
+
+		transaction.begin();
+
+		long size = dao.count();
+
+		transaction.rollback();
+
+		return size;
+	}
 
 	/**
 	 * 
@@ -37,7 +56,7 @@ public class TransactionSelectService {
 				.limit((int) count));
 
 		transaction.rollback();
-		
+
 		return walletTransactions;
 	}
 }

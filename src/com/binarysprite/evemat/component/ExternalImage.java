@@ -1,4 +1,4 @@
-package com.binarysprite.evemat.common;
+package com.binarysprite.evemat.component;
 
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebComponent;

@@ -1,4 +1,4 @@
-package com.binarysprite.evemat.service;
+package com.binarysprite.evemat.util;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

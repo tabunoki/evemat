@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.binarysprite.evemat.service.character;
+package com.binarysprite.evemat.page.character;
 
 import java.util.Collection;
 
@@ -19,9 +19,9 @@ import com.binarysprite.evemat.entity.AccountCharacterDaoImpl;
 
 /**
  * @author Tabunoki
- * 
+ *
  */
-public class CharacterRegisterService {
+public class CharacterAddPageService {
 
 	/**
 	 * 指定の user ID と varification code からキャラクター情報を取得し、データベースへ登録します。
