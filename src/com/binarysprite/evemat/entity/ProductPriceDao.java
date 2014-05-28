@@ -1,7 +1,6 @@
 package com.binarysprite.evemat.entity;
 
 import java.util.List;
-import java.util.Map;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
@@ -11,6 +10,7 @@ import org.seasar.doma.Select;
 import org.seasar.doma.Update;
 
 import com.binarysprite.evemat.DB;
+import com.binarysprite.evemat.entity.sub.ProductionPlan;
 
 /**
  */
@@ -35,7 +35,7 @@ public interface ProductPriceDao {
      * @return
      */
     @Select
-    List<Map<String, Object>> selectManufactureTable();
+    List<ProductionPlan> selectProductionPlan(int groupId);
 
     /**
      * @param entity
