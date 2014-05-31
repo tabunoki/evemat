@@ -3,6 +3,7 @@
  */
 package com.binarysprite.evemat.page.product;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +27,12 @@ public class ProductPageService {
 	 * 
 	 * @param groupId
 	 */
-	public List<Group> getProduct(int groupId) {
-		
-		final List<Group> groupDisplays = new ArrayList<Group>();
+	public Group getProduct(int groupId) {
+
+		Group group = new Group();
 
 		for (ProductionPlan plan : getProductionPlans(groupId)) {
 
-			Group group;
 			Product product;
 			Material material;
 
@@ -43,7 +43,7 @@ public class ProductPageService {
 			final int productionTimePerUnit = (int) (plan.getProductionTime()
 					* (1.0d - (plan.getProductivityModifier()
 							/ plan.getProductionTime() * (plan.getPe() / (1.0d + plan.getPe()))))
-							* (1.0d - (0.04d * plan.getSkillIndustry())));
+					* (1.0d - (0.04d * plan.getSkillIndustry())));
 			final int productionVolume = productionTimePerGroup / productionTimePerUnit;
 
 			/*
@@ -54,8 +54,6 @@ public class ProductPageService {
 							* (1.0d + (plan.getWasteFactor() / 100d / (1.0d + plan.getMe()))))
 							+ Math.round(plan.getMaterialQuantity() * (0.25d - (0.05d * plan.getPe()))))
 					* productionVolume);
-
-			group = new Group();
 
 			product = new Product(
 					plan.getProductTypeId(),
@@ -68,14 +66,8 @@ public class ProductPageService {
 					plan.getMaterialTypeName(),
 					plan.getMaterialBuyMax(),
 					realMaterialQuantity);
-			
-			group.setGroupName(plan.getGroupName());
 
-			if (groupDisplays.contains(group)) {
-				group = groupDisplays.get(groupDisplays.indexOf(group));
-			} else {
-				groupDisplays.add(group);
-			}
+			group.setGroupName(plan.getGroupName());
 
 			if (group.getProducts().contains(product) == false) {
 				group.getProducts().add(product);
@@ -88,8 +80,8 @@ public class ProductPageService {
 			}
 
 		}
-		
-		return groupDisplays;
+
+		return group;
 
 	}
 
@@ -116,5 +108,74 @@ public class ProductPageService {
 
 		return productionPlans;
 
+	}
+
+	/**
+	 * 
+	 * @param group
+	 * @return
+	 */
+	public BigDecimal getTotalCost(Group group) {
+
+		BigDecimal totalCost = new BigDecimal(0);
+
+		for (Material material : group.getMaterials()) {
+
+			totalCost.add(material.getCosts());
+		}
+
+		return totalCost;
+	}
+
+	/**
+	 * 
+	 * @param group
+	 * @return
+	 */
+	public BigDecimal getTotalSale(Group group) {
+
+		BigDecimal totalSale = new BigDecimal(0);
+
+		for (Product material : group.getProducts()) {
+
+			totalSale.add(material.getSales());
+		}
+
+		return totalSale;
+	}
+
+	/**
+	 * 
+	 * @param group
+	 * @return
+	 */
+	public BigDecimal getProfit(Group group) {
+
+		BigDecimal profit = new BigDecimal(0);
+
+		profit.add(getTotalSale(group));
+		profit.subtract(getTotalCost(group));
+
+		return profit;
+	}
+
+	/**
+	 * 
+	 * @param group
+	 * @return
+	 */
+	public double getRatio(Group group) {
+
+		double profit = getProfit(group).doubleValue();
+		double totalSales = getTotalSale(group).doubleValue();
+
+		if (totalSales == 0) {
+
+			return 0;
+
+		} else {
+
+			return profit / totalSales;
+		}
 	}
 }

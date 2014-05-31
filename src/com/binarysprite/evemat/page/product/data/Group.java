@@ -9,11 +9,21 @@ import java.util.List;
  * 
  */
 public class Group {
-	
+
+	/**
+	 * 
+	 */
+	private int ID;
+
 	/**
 	 * 
 	 */
 	private String groupName;
+
+	/**
+	 * 
+	 */
+	private String characterName;
 
 	/**
 	 * 
@@ -26,6 +36,20 @@ public class Group {
 	private final List<Material> materials = new ArrayList<Material>();
 
 	/**
+	 * @return iD
+	 */
+	public int getID() {
+		return ID;
+	}
+
+	/**
+	 * @param iD iD を設定します。
+	 */
+	public void setID(int iD) {
+		ID = iD;
+	}
+
+	/**
 	 * @return groupName
 	 */
 	public String getGroupName() {
@@ -33,10 +57,26 @@ public class Group {
 	}
 
 	/**
-	 * @param groupName groupName を設定します。
+	 * @param groupName
+	 *            groupName を設定します。
 	 */
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
+	}
+
+	/**
+	 * @return characterName
+	 */
+	public String getCharacterName() {
+		return characterName;
+	}
+
+	/**
+	 * @param characterName
+	 *            characterName を設定します。
+	 */
+	public void setCharacterName(String characterName) {
+		this.characterName = characterName;
 	}
 
 	/**
@@ -52,6 +92,5 @@ public class Group {
 	public List<Material> getMaterials() {
 		return materials;
 	}
-
 
 }
