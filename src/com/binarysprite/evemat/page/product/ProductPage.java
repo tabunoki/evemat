@@ -107,11 +107,6 @@ public class ProductPage extends FramePage {
 	public static final String WICKET_ID_RATIO_LABEL = "ratioLabel";
 
 	/**
-	 * アイテムタイプをクリックした時のイベント定義です。
-	 */
-	private static final String ONCLICK_EVENT = "CCPEVE.showMarketDetails({0})";
-
-	/**
 	 * グループ一覧のモデルオブジェクトです。
 	 */
 	private final List<Group> groupList = new ArrayList<Group>();
@@ -146,8 +141,8 @@ public class ProductPage extends FramePage {
 					products.clear();
 					materials.clear();
 
-					products.addAll(productPageService.getProduct(group.getID()).getProducts());
-					materials.addAll(productPageService.getProduct(group.getID()).getMaterials());
+					products.addAll(productPageService.getProduct(group.getId()).getProducts());
+					materials.addAll(productPageService.getProduct(group.getId()).getMaterials());
 
 				}
 			};
@@ -248,8 +243,10 @@ public class ProductPage extends FramePage {
 	 */
 	public ProductPage() {
 		super();
+		
+		groupList.addAll(productPageService.getGroups());
 
-		group = productPageService.getProduct(0);
+		group = productPageService.getProduct(groupList.get(0).getId());
 
 		/*
 		 * コンポーネントの生成

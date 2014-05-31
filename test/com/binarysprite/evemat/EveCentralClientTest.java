@@ -5,6 +5,10 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.binarysprite.evemat.util.evecentral.EveCentralClient;
+import com.binarysprite.evemat.util.evecentral.EveCentralMarketOrder;
+import com.binarysprite.evemat.util.evecentral.EveCentralMarketStat;
+
 public class EveCentralClientTest {
 
 	@Test

@@ -1,5 +1,6 @@
 package com.binarysprite.evemat.page.product.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,12 +9,12 @@ import java.util.List;
  * @author Tabunoki
  * 
  */
-public class Group {
+public class Group implements Serializable {
 
 	/**
 	 * 
 	 */
-	private int ID;
+	private int id;
 
 	/**
 	 * 
@@ -35,18 +36,19 @@ public class Group {
 	 */
 	private final List<Material> materials = new ArrayList<Material>();
 
+
 	/**
-	 * @return iD
+	 * @return id
 	 */
-	public int getID() {
-		return ID;
+	public int getId() {
+		return id;
 	}
 
 	/**
-	 * @param iD iD を設定します。
+	 * @param id id を設定します。
 	 */
-	public void setID(int iD) {
-		ID = iD;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package com.binarysprite.evemat;
+package com.binarysprite.evemat.util.evecentral;
 
 /**
  * EVE Central の API marketstat_xml のデータ管理クラスです。

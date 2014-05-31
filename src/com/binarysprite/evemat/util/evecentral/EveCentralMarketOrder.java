@@ -1,4 +1,4 @@
-package com.binarysprite.evemat;
+package com.binarysprite.evemat.util.evecentral;
 
 import java.util.Date;
 

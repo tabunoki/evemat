@@ -10,6 +10,12 @@ import java.util.List;
 import org.seasar.doma.jdbc.tx.LocalTransaction;
 
 import com.binarysprite.evemat.DB;
+import com.binarysprite.evemat.entity.AccountCharacter;
+import com.binarysprite.evemat.entity.AccountCharacterDao;
+import com.binarysprite.evemat.entity.AccountCharacterDaoImpl;
+import com.binarysprite.evemat.entity.ProductGroup;
+import com.binarysprite.evemat.entity.ProductGroupDao;
+import com.binarysprite.evemat.entity.ProductGroupDaoImpl;
 import com.binarysprite.evemat.entity.ProductPriceDao;
 import com.binarysprite.evemat.entity.ProductPriceDaoImpl;
 import com.binarysprite.evemat.entity.sub.ProductionPlan;
@@ -22,6 +28,44 @@ import com.binarysprite.evemat.page.product.data.Product;
  * 
  */
 public class ProductPageService {
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Group> getGroups() {
+
+		List<Group> groups = new ArrayList<Group>();
+
+		ProductGroupDao productGroupDao = new ProductGroupDaoImpl();
+		AccountCharacterDao accountCharacterDao = new AccountCharacterDaoImpl();
+
+		LocalTransaction transaction = DB.getLocalTransaction();
+		try {
+			transaction.begin();
+
+			List<ProductGroup> productGroups = productGroupDao.selectAll();
+
+			for (ProductGroup productGroup : productGroups) {
+				
+
+				final AccountCharacter accountCharacter =
+						accountCharacterDao.selectById(productGroup.getCharacterId());
+				
+				final Group group = new Group();
+				group.setId(productGroup.getId());
+				group.setGroupName(productGroup.getGroupName());
+				group.setCharacterName(accountCharacter.getCharacterName());
+				
+				groups.add(group);
+			}
+
+		} finally {
+			transaction.rollback();
+		}
+
+		return groups;
+	}
 
 	/**
 	 * 

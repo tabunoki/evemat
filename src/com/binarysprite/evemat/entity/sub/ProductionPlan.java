@@ -16,103 +16,103 @@ public class ProductionPlan {
 	/**
 	 * グループ名です。
 	 */
-	@Column(name = "PRODUCT_GROUP.GROUP_NAME")
+	@Column(name = "GROUP_NAME")
 	private String groupName;
 
 	/**
 	 * グループの生産時間です。
 	 */
-	@Column(name = "PRODUCT_GROUP.PRODUCTION_TIME")
+	@Column(name = "GROUP_PRODUCTION_TIME")
 	private int groupProductionTime;
 
 	/**
 	 * 「Industry」スキルのレベルです。
 	 */
-	@Column(name = "ACCOUNT_CHARACTER.SKILL_INDUSTRY")
+	@Column(name = "SKILL_INDUSTRY")
 	private int skillIndustry;
 
 	/**
 	 * 「Production Effciency」スキルのレベルです。
 	 */
-	@Column(name = "ACCOUNT_CHARACTER.SKILL_PRODUCTION_EFFICIENCY")
+	@Column(name = "SKILL_PRODUCTION_EFFICIENCY")
 	private int skillProductionEfficiency;
 
 	/**
 	 * ブループリントの「ME」レベルです。
 	 */
-	@Column(name = "PRODUCT_BLUEPRINT.ME")
+	@Column(name = "ME")
 	private int me;
 
 	/**
 	 * ブループリントの「PE」レベルです。
 	 */
-	@Column(name = "PRODUCT_BLUEPRINT.PE")
+	@Column(name = "PE")
 	private int pe;
 
 	/**
 	 * 製品の Type ID です。
 	 */
-	@Column(name = "PRODUCT_TYPE.TYPE_ID")
+	@Column(name = "PRODUCT_ID")
 	private int productTypeId;
 
 	/**
 	 * 製品名です。
 	 */
-	@Column(name = "PRODUCT_TYPE.TYPE_NAME")
+	@Column(name = "PRODUCT_NAME")
 	private String productTypeName;
 
 	/**
 	 * ポーションサイズです。
 	 */
-	@Column(name = "PRODUCT_TYPE.PORTION_SIZE")
+	@Column(name = "PORTION_SIZE")
 	private int portionSize;
 
 	/**
 	 * 製品の最安売値です。
 	 */
-	@Column(name = "PRODUCT_PRICE.SELL_MIN")
+	@Column(name = "SELL_MIN")
 	private BigDecimal productSellMin;
 
 	/**
 	 * 材料の Type ID です。
 	 */
-	@Column(name = "MATERIAL_TYPE.TYPE_ID")
+	@Column(name = "MATERIAL_ID")
 	private int materialTypeId;
 
 	/**
 	 * 材料名です。
 	 */
-	@Column(name = "MATERIAL_TYPE.TYPE_NAME")
+	@Column(name = "MATERIAL_NAME")
 	private String materialTypeName;
 
 	/**
 	 * 材料の最高買値です。
 	 */
-	@Column(name = "MATERIAL_PRICE.BUY_MAX")
+	@Column(name = "BUY_MAX")
 	private BigDecimal materialBuyMax;
 
 	/**
 	 * 材料数です。
 	 */
-	@Column(name = "MATERIAL.QUANTITY")
+	@Column(name = "QUANTITY")
 	private int materialQuantity;
 
 	/**
 	 * 材料の利用効率です。
 	 */
-	@Column(name = "BLUEPRINT.WASTE_FACTOR")
+	@Column(name = "WASTE_FACTOR")
 	private int wasteFactor;
 
 	/**
 	 * ブループリントの基本生産時間です。
 	 */
-	@Column(name = "BLUEPRINT.PRODUCTION_TIME")
+	@Column(name = "PRODUCT_PRODUCTION_TIME")
 	private int productionTime;
 
 	/**
 	 * ブループリントの生産補正です。
 	 */
-	@Column(name = "BLUEPRINT.PRODUCTIVITY_MODIFIER")
+	@Column(name = "PRODUCTIVITY_MODIFIER")
 	private int productivityModifier;
 
 	/**

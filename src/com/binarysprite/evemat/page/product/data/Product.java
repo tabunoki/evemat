@@ -1,5 +1,6 @@
 package com.binarysprite.evemat.page.product.data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -7,7 +8,7 @@ import java.math.BigDecimal;
  * @author Tabunoki
  *
  */
-public class Product {
+public class Product implements Serializable {
 	
 	private final int id;
 	
